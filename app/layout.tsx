@@ -32,7 +32,7 @@ export default function RootLayout({
         >
           <header className='mx-12 flex items-center justify-between gap-2 pt-4'>
             {/* <Icon/> */}
-            <p className='text-lg font-bold text-blsm_primary'>Blossom</p>
+            <p className='text-lg font-bold text-blsm_primary'>BlossomAI</p>
             <div className='md:hidden'>
               <ThemeToggle />
             </div>
