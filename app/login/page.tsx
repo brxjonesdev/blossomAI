@@ -1,6 +1,13 @@
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
+import { createClient } from '@/utils/supabase/server';
+import AuthForm from '@/components/auth-form';
+
+const supabase = createClient();
+
+
+
 
 export default function LoginPage() {
   return (
@@ -21,6 +28,10 @@ export default function LoginPage() {
             <p>
                 Signup here.
             </p>
+            <AuthForm githubLogin={async ()=> {
+              'use server'
+              signInWithGithub();
+            }}/>
           </TabsContent>
         </Tabs>
       </section>

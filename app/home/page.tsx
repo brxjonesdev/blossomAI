@@ -1,7 +1,12 @@
 import React from 'react'
+import Notifications from '@/components/notifications';
+import MobileMenu from '@/components/mobile-menu';
 
 export default function Dashboard() {
   return (
-    <div>Dashboard Goes Here</div>
+    <section>
+      <Notifications/>
+      <MobileMenu/>
+    </section>
   )
 }
