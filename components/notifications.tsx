@@ -3,6 +3,7 @@ import React from 'react'
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { motion, AnimatePresence } from "framer-motion"
+import ThemeToggle from './theme-changer';
 
 
 export default function Notifications() {
@@ -13,8 +14,8 @@ export default function Notifications() {
     ];
 
     return (
-        <div className='border-2 p-2 rounded-md flex flex-col gap-4'>
-            <div className='flex items-center justify-between'>
+        <div className="">     
+       <div className='flex items-center justify-between flex-wrap gap-2'>
                 <div className='flex items-center gap-2'>
                 <Avatar>
                     <AvatarImage src=''/>
@@ -22,30 +23,8 @@ export default function Notifications() {
                 </Avatar>
                 <p className='text-lg font-bold'>Rory Mercury</p>
                 </div>
-                <p className='text-xs italic'>7 updates.</p>
+                <ThemeToggle/>
             </div>
-            <motion.div className='border-white border-2 rounded-lg'>
-                {notifications.map((notification, index) => {
-                    return (
-                        <AnimatePresence key={index}>
-                            <motion.div
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -50 }}
-                                className='flex items-center gap-2 p-2'
-                            >
-                                <div>
-                                    {/* We could add a better icon here. */}
-                                    <svg width="20" height="20">
-                                        <circle cx="10" cy="10" r="10" fill="purple" />
-                                    </svg>
-                                </div>
-                                <p className='italic'>{notification}</p>
-                            </motion.div>
-                        </AnimatePresence>
-                    );
-                })}
-            </motion.div>
-        </div>
+         </div>
     );
 }

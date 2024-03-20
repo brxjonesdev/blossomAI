@@ -20,7 +20,9 @@ const config = {
     extend: {
       colors: {
         blsm_text: 'hsl(0, 0%, 96%)',
+        blsm_white: 'hsl(0, 0%, 90%)',
         blsm_background: 'hsl(0, 0%, 11%)',
+        blsm_black: 'hsl(0, 0%, 8%)',
         blsm_primary: 'hsl(357, 70%, 88%)',
         blsm_secondary: 'hsl(35, 84%, 88%)',
         blsm_accent: 'hsl(354, 61%, 76%)',
