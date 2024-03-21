@@ -1,11 +1,23 @@
+import Notifications from "@/components/notifications"
+import MobileMenu from "@/components/mobile-menu"
+import ProjectSelect from "@/components/project-select"
+import Projects from "@/components/projects"
+import CreateContent from "@/components/create-content-btn"
+
 export default function DashboardLayout({
     children,
-  }: Readonly<{
-    children: React.ReactNode;
-  }>) {
-  return (
-    <div className='flex flex-col'>
-      <main className='flex-1 p-4 overflow-y-aut'>{children}</main>
-    </div>
-  );
-}
+  }: {
+    children: React.ReactNode
+  }) {
+    return(
+    <div className="grow gap-4 my-4 md:flex">
+    <section className='border-2 flex flex-col gap-10'>
+    <Notifications/>
+    <CreateContent/>
+    <ProjectSelect/>
+    </section>
+     <MobileMenu/>
+      {children}
+</div>
+    )
+  }
