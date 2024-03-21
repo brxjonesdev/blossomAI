@@ -10,7 +10,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className='my-4 grow gap-4 flex flex-col md:flex-row'>
+    <div className='my-4 flex grow flex-col gap-4 md:flex-row'>
       <section className='flex flex-col gap-10'>
         <Notifications />
         <ProjectSelect />

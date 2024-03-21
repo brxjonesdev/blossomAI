@@ -1,13 +1,22 @@
 import type { Metadata } from 'next';
-import { Nunito_Sans } from 'next/font/google';
+import { Montserrat, Cabin } from "next/font/google";
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
 import Icon from '@/components/blossom_logo';
 import ThemeToggle from '@/components/theme-changer';
 
-const nunito_sans = Nunito_Sans({
-  weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
-  subsets: ['latin'],
+export const montserrat = Montserrat({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--montserrat",
+});
+
+export const cabin = Cabin({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--cabin",
 });
 
 export const metadata: Metadata = {
@@ -23,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <head />
-      <body className={`${nunito_sans.className}`}>
+      <body className={`${montserrat.variable} ${cabin.variable}`}>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
