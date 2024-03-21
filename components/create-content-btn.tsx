@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 export default function CreateContent() {
   return (
-    <div className="h-fit hidden md:block">
-      <button className="bg-blsm_primary text-blsm_white rounded-md p-2">Create New</button>
+    <div className='hidden h-fit md:block'>
+      <button className='rounded-md bg-blsm_primary p-2 text-blsm_white'>
+        Create New
+      </button>
     </div>
-  )
+  );
 }

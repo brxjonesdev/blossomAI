@@ -30,15 +30,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-      <main className='flex flex-col min-h-screen justify-center items-center'>
-      <header className='mx-12 my-3 flex justify-center '>
-            {/* <Icon/> */}
-            <p className='text-lg font-bold text-blsm_primary'>BlossomAI</p>
-      </header>
-      <section className='flex-1 flex flex-col max-w-7xl w-full mx-4 px-4 md:justify-center'>
-      {children}
-      </section>
-      </main>
+          <main className='flex min-h-screen flex-col items-center justify-center'>
+            <header className='mx-12 my-3 flex justify-center '>
+              {/* <Icon/> */}
+              <p className='text-lg font-bold text-blsm_primary'>BlossomAI</p>
+            </header>
+            <section className='mx-4 flex w-full max-w-7xl flex-1 flex-col px-4 md:justify-center'>
+              {children}
+            </section>
+          </main>
         </ThemeProvider>
       </body>
     </html>
