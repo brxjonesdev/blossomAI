@@ -20,11 +20,11 @@ export default function Content() {
           <p className='font-cabin'>4 pull requests, 7 issues, 12 commits</p>
         </div>
         <div className='flex flex-col gap-2 border-2 w-full p-2 rounded'>
-          <h2 className='font-montserrat font-bold text-lg'>Repository 1</h2>
+          <h2 className='font-montserrat font-bold text-lg'>Repository 3</h2>
           <p className='font-cabin'>4 pull requests, 7 issues, 12 commits</p>
         </div>
         <div className='flex flex-col gap-2 border-2 w-full p-2 rounded'>
-          <h2 className='font-montserrat font-bold text-lg'>Repository 2</h2>
+          <h2 className='font-montserrat font-bold text-lg'>Repository 4</h2>
           <p className='font-cabin'>4 pull requests, 7 issues, 12 commits</p>
         </div>
         <div className='flex flex-col gap-2 border-2 w-full p-2 rounded'>
