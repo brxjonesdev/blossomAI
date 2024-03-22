@@ -42,7 +42,7 @@ export default function RootLayout({
           <main className='flex min-h-screen flex-col items-center justify-center'>
             <header className='mx-12 my-3 flex justify-center '>
               {/* <Icon/> */}
-              <p className='text-lg font-bold text-blsm_primary'>BlossomAI</p>
+              <p className='text-lg  text-blsm_primary font-montserrat font-black tracking-wide'>BlossomAI</p>
             </header>
             <section className='mx-4 flex w-full max-w-7xl flex-1 flex-col px-4 md:justify-center'>
               {children}
