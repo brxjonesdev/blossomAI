@@ -1,8 +1,5 @@
-import Notifications from '@/components/notifications';
-import MobileMenu from '@/components/mobile-menu';
-import ProjectSelect from '@/components/project-select';
-import Projects from '@/components/projects';
-import CreateContent from '@/components/create-content-btn';
+import UserInfo from '@/components/user-info';
+
 
 export default function DashboardLayout({
   children,
@@ -11,11 +8,7 @@ export default function DashboardLayout({
 }) {
   return (
     <div className='my-4 flex grow flex-col gap-4 md:flex-row'>
-      <section className='flex flex-col gap-10'>
-        <Notifications />
-        <ProjectSelect />
-      </section>
-      <MobileMenu />
+     <UserInfo />
       {children}
     </div>
   );

@@ -1,8 +1,5 @@
 import Image from 'next/image';
-import ThemeToggle from '@/components/theme-changer';
 import Link from 'next/link';
-import github from '@/public/github-mark.svg';
-import GithubAuthBtn from '@/components/login-btn';
 export default function LandingPage() {
   return (
     <main className='font-montserrat grow flex justify-center'>

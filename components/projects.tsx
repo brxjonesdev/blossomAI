@@ -1,6 +1,8 @@
 import React from 'react';
 import Project from './project';
 import { Input } from './ui/input';
+import { Button } from "@/components/ui/button"
+
 
 export default function Projects() {
   {
@@ -24,55 +26,27 @@ export default function Projects() {
     };
   };
 
-  const sampleRepos: Repos[] = [
-    {
-      name: 'NeuralSculptor',
-      description:
-        'A tool for generating digital sculptures using neural networks.',
-      petalscore: 92,
-      lastUpdated: '2024-03-21',
-      owner: 'ArtGenius',
-      githubLink: 'https://github.com/artgenius/neural-sculptor',
-      recentUpdate: {
-        date: '2024-03-21',
-        message: 'Enhanced sculpting algorithm for smoother outputs.',
-      },
-    },
-    {
-      name: 'GalacticExplorer',
-      description:
-        'An interactive simulation for exploring the depths of the cosmos.',
-      petalscore: 88,
-      lastUpdated: '2024-03-20',
-      owner: 'StellarTech',
-      githubLink: 'https://github.com/stellartech/galactic-explorer',
-      recentUpdate: {
-        date: '2024-03-20',
-        message: 'Added virtual reality support for immersive experiences.',
-      },
-    },
-    {
-      name: 'DreamWeaver',
-      description:
-        'A web application for collaboratively creating and sharing dreams.',
-      petalscore: 95,
-      lastUpdated: '2024-03-19',
-      owner: 'Oneirologist',
-      githubLink: 'https://github.com/oneirologist/dream-weaver',
-      recentUpdate: {
-        date: '2024-03-19',
-        message: 'Implemented dream visualization tool for better analysis.',
-      },
-    },
+  const blsmProjects: Repos[] = [
+  
   ];
 
   return (
     <div className='grow'>
-      <Input placeholder='Search Projects ...' className='mb-4 p-4 text-blsm_accent hidden md:block'></Input>
+      <div className='flex items-center justify-center gap-4 mb-4'>
+      <Input placeholder='Search Projects ...' className='p-4 text-blsm_accent'></Input> 
+      <Button className='bg-blsm_accent text-white font-cabin'>Search</Button>
+      </div>
+      
       <div className='grid grid-cols-1 gap-4'>
-        {sampleRepos.map((project, i) => (
-          <Project key={i} project={project} />
-        ))}
+        {blsmProjects && blsmProjects.length > 0 ? (
+          blsmProjects.map((project, i) => (
+            <Project key={i} project={project} />
+          ))
+        ) : (
+          <p className='text-center font-cabin'>
+            There are no projects to display. 
+          </p>
+        )}
       </div>
     </div>
   );

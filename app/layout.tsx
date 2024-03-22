@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import { Montserrat, Cabin } from "next/font/google";
 import './globals.css';
-import { ThemeProvider } from 'next-themes';
-import Icon from '@/components/blossom_logo';
-import ThemeToggle from '@/components/theme-changer';
+import Link from 'next/link';
 
 export const montserrat = Montserrat({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -32,23 +30,21 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <head />
-      <body className={`${montserrat.variable} ${cabin.variable}`}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
+      <body className={`${montserrat.variable} ${cabin.variable} bg-background text-blsm_text`}>
+
           <main className='flex min-h-screen flex-col items-center justify-center'>
             <header className='mx-12 my-3 flex justify-center '>
               {/* <Icon/> */}
-              <p className='text-lg  text-blsm_primary font-montserrat font-black tracking-wide'>BlossomAI</p>
+              <p className='text-lg  text-blsm_primary font-montserrat font-black tracking-wide hover:text-blsm_accent'>
+                <Link href="/home">
+                BlossomAI
+                </Link>
+                </p>
             </header>
             <section className='mx-4 flex w-full max-w-7xl flex-1 flex-col px-4 md:justify-center'>
               {children}
             </section>
           </main>
-        </ThemeProvider>
       </body>
     </html>
   );

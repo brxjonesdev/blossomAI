@@ -3,7 +3,6 @@ import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { motion, AnimatePresence } from 'framer-motion';
-import ThemeToggle from './theme-changer';
 import Link from 'next/link';
 import {
   Accordion,
@@ -20,15 +19,16 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-export default function Notifications() {
+export default function UserInfo() {
   const repoUpdates: string[] = [
-    'Repo 1: Updated README.md',
-    'Repo 2: Updated index.js',
-    'Repo 3: Updated styles.css',
+    // 'Repo 1: 3 new commits',
+    // 'Repo 2: 1 new commit',
+    // 'Repo 3: 2 new commits',
+    // 'Repo 4: 1 new commit',
   ];
 
   return (
-    <div className='flex flex-col gap-2 rounded-md border-2 p-4 '>
+    <div className='flex flex-col gap-2 rounded-md border-2 p-4'>
       <div className='flex flex-wrap items-center justify-between gap-2  '>
         <div className='flex items-center gap-2  '>
           <Avatar>
@@ -60,29 +60,35 @@ export default function Notifications() {
       <div className='my-2 border-b-2 border-t-2 border-blsm_accent' />
       <div className='hidden md:block'>
         <p className='mb-2 text-xl font-bold'>
-          You have 4 recent repo changes.
+          You have {repoUpdates.length} recent repo changes.
         </p>
         <div className='flex flex-col gap-2'>
           <AnimatePresence>
-            {repoUpdates.map((update, i) => (
-              <motion.p
-                key={i}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{
-                  duration: 0.5,
-                  staggerChildren: 1.5,
-                }}
-              >
-                {update}
-              </motion.p>
-            ))}
+          {repoUpdates && repoUpdates.length > 0 ? (
+                  repoUpdates.map((update, i) => (
+                    <motion.p
+                      key={i}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, x: -100 }}
+                      transition={{
+                        duration: 0.5,
+                        staggerChildren: 1.5,
+                      }}
+                    >
+                      {update}
+                    </motion.p>
+                  ))
+                ) : (
+                  <p className='text-center font-cabin'>
+                    There are no recent updates to display.
+                  </p>
+                )}
           </AnimatePresence>
         </div>
         <div className='mt-3 flex items-center justify-center'>
           <Link
-            href='/home'
+            href='/home/blsmAI'
             className='w-full rounded-sm border-2 border-blsm_accent p-2 text-center hover:bg-blsm_primary'
           >
             Make Post{' '}
@@ -92,24 +98,30 @@ export default function Notifications() {
 
       <Accordion type='single' collapsible className='md:hidden'>
         <AccordionItem value='item-1'>
-          <AccordionTrigger> You have 4 recent repo changes.</AccordionTrigger>
+          <AccordionTrigger> You have {repoUpdates.length > 0 ? repoUpdates.length : "no"} recent repo changes.</AccordionTrigger>
           <AccordionContent>
             <div className='flex flex-col gap-2'>
               <AnimatePresence>
-                {repoUpdates.map((update, i) => (
-                  <motion.p
-                    key={i}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, x: -100 }}
-                    transition={{
-                      duration: 0.5,
-                      staggerChildren: 1.5,
-                    }}
-                  >
-                    {update}
-                  </motion.p>
-                ))}
+                {repoUpdates && repoUpdates.length > 0 ? (
+                  repoUpdates.map((update, i) => (
+                    <motion.p
+                      key={i}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, x: -100 }}
+                      transition={{
+                        duration: 0.5,
+                        staggerChildren: 1.5,
+                      }}
+                    >
+                      {update}
+                    </motion.p>
+                  ))
+                ) : (
+                  <p className='text-center font-cabin'>
+                    There are no recent updates to display.
+                  </p>
+                )}
               </AnimatePresence>
             </div>
             <motion.div
@@ -119,7 +131,7 @@ export default function Notifications() {
               transition={{ duration: 0.8 }}
             >
               <Link
-                href='/home'
+                href='/home/blsmAI'
                 className='w-full rounded-sm border-2 border-blsm_accent p-2 text-center hover:bg-blsm_primary'
               >
                 Make Post{' '}
