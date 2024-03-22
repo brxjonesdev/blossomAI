@@ -8,7 +8,7 @@ export default function LandingPage() {
     <main className='font-montserrat grow flex justify-center'>
       <div className='flex gap-2 flex-col max-w-2xl text-center '>
         <section>
-        <h1 className='text-3xl font-black text-center md:text-5xl'>Focus on your project's development while sharing it with the world.</h1>
+        <h1 className='text-3xl font-black text-center md:text-5xl'>{`Focus on your project's development while sharing it with the world.`}</h1>
         <p className='font-cabin text-center p-2 md:text-xl'>
           Streamline your project updates effortlessly with our platform. BlossomAI simplifies progress reporting for developers, integrating seamlessly with GitHub. Share your journey transparently and engage your audience effectively.
         </p>
