@@ -63,7 +63,7 @@ function sendToBackend(data) {
         axios.post('http://localhost:3000/api/blsm_connect', data.issueDetails)
         .then(response => response.json()) // Parse response JSON
         .then(data => console.log('Response from backend:', data)) // Log response
-        .catch(error => console.error('Error:', error)); // Handle errors
+        .catch(error => console.error('Error in try:', error)); // Handle errors
       } catch (error) {
         console.error('Error:', error);
       }
@@ -74,7 +74,7 @@ function sendToBackend(data) {
        axios.post('http://localhost:3000/api/blsm_connect', data.pullRequestDetails)
         .then(response => response.json()) // Parse response JSON
         .then(data => console.log('Response from backend:', data)) // Log response
-        .catch(error => console.error('Error:', error)); // Handle errors
+        .catch(error => console.error('Error in try:', error)); // Handle errors
       } catch (error) {
         console.error('Error:', error);
       }
@@ -85,7 +85,7 @@ function sendToBackend(data) {
         axios.post('http://localhost:3000/api/blsm_connect', data.commitDetails)
         .then(response => response.json()) // Parse response JSON
         .then(data => console.log('Response from backend:', data)) // Log response
-        .catch(error => console.error('Error:', error)); // Handle errors
+        .catch(error => console.error('Error in try:', error)); // Handle errors
       } catch (error) {
         console.error('Error:', error);
       }
