@@ -1,7 +1,5 @@
 name: BLSM_AI helper
 
-
-# when we make the script, main will be whatever the user selects in the cli
 on:
   push:
     branches:
@@ -27,11 +25,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'
+
     - name: Install dependencies
       run: npm install
-
-    - name: Install fetch
-      run: npm install node-fetch
 
     - name: Excute BLSM script
       run: node .github/scripts/blsm.js
@@ -51,5 +47,3 @@ jobs:
         PR_REPO: ${{ github.repository }}
         TIMESTAMP: ${{ github.event.head_commit.timestamp }}
         TYPE: ${{ github.event_name }}
-
-

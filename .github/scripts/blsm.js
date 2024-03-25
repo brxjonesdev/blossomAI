@@ -1,4 +1,4 @@
-const fetch = require('node-fetch'); // Import node-fetch to make HTTP requests
+const axios = require('axios');
 
 const commitMessage = process.env.COMMIT_MESSAGE;
 const commitAuthor = process.env.COMMIT_AUTHOR;
@@ -60,13 +60,7 @@ function sendToBackend(data) {
     case 'issue':
       console.log('Sending issue data to backend:', data.issueDetails);
       try {
-        fetch('http://localhost:3000/api/blsm_connect', {
-          method: 'POST',
-          body: JSON.stringify(data.issueDetails),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
+        axios.post('http://localhost:3000/api/blsm_connect', data.issueDetails)
         .then(response => response.json()) // Parse response JSON
         .then(data => console.log('Response from backend:', data)) // Log response
         .catch(error => console.error('Error:', error)); // Handle errors
@@ -77,13 +71,7 @@ function sendToBackend(data) {
     case 'pull_request':
       console.log('Sending pull request data to backend:', data.pullRequestDetails);
       try {
-        fetch('http://localhost:3000/api/blsm_connect', {
-          method: 'POST',
-          body: JSON.stringify(data.pullRequestDetails),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
+       axios.post('http://localhost:3000/api/blsm_connect', data.pullRequestDetails)
         .then(response => response.json()) // Parse response JSON
         .then(data => console.log('Response from backend:', data)) // Log response
         .catch(error => console.error('Error:', error)); // Handle errors
@@ -94,13 +82,7 @@ function sendToBackend(data) {
     case 'push':
       console.log('Sending commit data to backend:', data.commitDetails);
       try {
-        fetch('http://localhost:3000/api/blsm_connect', {
-          method: 'POST',
-          body: JSON.stringify(data.commitDetails),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
+        axios.post('http://localhost:3000/api/blsm_connect', data.commitDetails)
         .then(response => response.json()) // Parse response JSON
         .then(data => console.log('Response from backend:', data)) // Log response
         .catch(error => console.error('Error:', error)); // Handle errors
