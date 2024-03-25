@@ -3,15 +3,18 @@ name: BLSM_AI helper
 on:
   push:
     branches:
-      - [dev, main] 
+      - dev
+      - main
   pull_request:
     types: [opened, closed]
     branches:
-      - [dev, main]
+      - dev
+      - main
   issues:
     types: [opened, closed]
     branches:
-      - [dev, main]
+      - dev
+      - main
 
 jobs:
   build:
