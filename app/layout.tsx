@@ -3,14 +3,14 @@ import { Montserrat, Cabin } from "next/font/google";
 import './globals.css';
 import Link from 'next/link';
 
-export const montserrat = Montserrat({
+const montserrat = Montserrat({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
   display: "swap",
   variable: "--montserrat",
 });
 
-export const cabin = Cabin({
+const cabin = Cabin({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
