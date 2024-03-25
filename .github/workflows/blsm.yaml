@@ -11,7 +11,7 @@ on:
       - dev
       - main
   issues:
-    types: [opened, closed]
+    types: [opened, closed, reopened]
     branches:
       - dev
       - main
@@ -47,9 +47,11 @@ jobs:
         ISSUE_TITLE: ${{ github.event.issue.title }}
         ISSUE_BODY: ${{ github.event.issue.body }}
         ISSUE_REPO: ${{ github.repository }}
+        ISSUE_ACTION: ${{ github.event.issue.action }}
         PR_NUMBER: ${{ github.event.pull_request.number }}
         PR_TITLE: ${{ github.event.pull_request.title }}
         PR_BODY: ${{ github.event.pull_request.body }}
+        PR_ACTION: ${{ github.event.pull_request.action }}
         PR_REPO: ${{ github.repository }}
         TIMESTAMP: ${{ github.event.head_commit.timestamp }}
         TYPE: ${{ github.event_name }}
