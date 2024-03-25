@@ -48,7 +48,7 @@ const dataFromAction = {
 console.log('Data from action:', dataFromAction);
 
 function sendToBackend(data) {
-  axios.post('http://localhost:3001/api/blsm_connect', data)
+  axios.post('https://blossom-ai-rose.vercel.app/api/blsm_connect', data)
     .then(response => {
       console.log('Response from microservice:', response.data);
     })
