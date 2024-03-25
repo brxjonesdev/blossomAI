@@ -105,4 +105,6 @@ function sendToBackend(data) {
   
 }
 
+sendToBackend(dataFromAction)
+
 
