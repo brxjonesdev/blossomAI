@@ -41,9 +41,6 @@ const dataFromAction = {
     timestamp: timestamp,
     username: username,
     message: commitMessage,
-    author: commitAuthor,
-    sha: commitSha,
-    ref: commitRef,
     repo: commitRepo,
   },
   pullRequestDetails: {
@@ -65,43 +62,14 @@ const dataFromAction = {
 }
 
 function sendToBackend(data) {
-  switch (data.type) {
-    case 'issue':
-      console.log('Sending issue data to backend:', data.issueDetails);
-      try {
-        axios.post('http://localhost:3000/api/blsm_connect', data.issueDetails)
-        .then(response => response.json()) // Parse response JSON
-        .then(data => console.log('Response from backend:', data)) // Log response
-        .catch(error => console.error('Error in try:', error)); // Handle errors
-      } catch (error) {
-        console.error('Error:', error);
-      }
-      break;
-    case 'pull_request':
-      console.log('Sending pull request data to backend:', data.pullRequestDetails);
-      try {
-       axios.post('http://localhost:3000/api/blsm_connect', data.pullRequestDetails)
-        .then(response => response.json()) // Parse response JSON
-        .then(data => console.log('Response from backend:', data)) // Log response
-        .catch(error => console.error('Error in try:', error)); // Handle errors
-      } catch (error) {
-        console.error('Error:', error);
-      }
-      break;
-    case 'push':
-      console.log('Sending commit data to backend:', data.commitDetails);
-      try {
-        axios.post('http://localhost:3000/api/blsm_connect', data.commitDetails)
-        .then(response => response.json()) // Parse response JSON
-        .then(data => console.log('Response from backend:', data)) // Log response
-        .catch(error => console.error('Error in try:', error)); // Handle errors
-      } catch (error) {
-        console.error('Error:', error);
-      }
-      break;
-    default:
-      console.log(':)');
-  }
+  axios.post('http://localhost:3001/api/blsm_connect', data)
+    .then(response => {
+      console.log('Response from microservice:', response.data);
+    })
+    .catch(error => {
+      console.error('Error sending data to microservice:', error);
+    });
 }
+
 
 sendToBackend(dataFromAction);

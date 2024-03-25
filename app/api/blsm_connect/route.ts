@@ -4,10 +4,9 @@ export async function POST(req: Request) {
   // const body = await req.json();
   // console.log('Received data:', body);
   const dummyData = {
-    message: 'error clear',
-    author: 'Braxton',
-    sha: '3370567910cd24f4fec69abdf42444cd9bd47a69',
-    ref: 'refs/heads/dev',
+    timestamp: '2024-03-24T23:41:26-04:00',
+    username: 'Braxton-Jones',
+    message: 'small change',
     repo: 'Braxton-Jones/blossomAI'
   }
   return NextResponse.next();
