@@ -5,6 +5,6 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  console.log(req)
+  console.log(req.body)
   return NextResponse.json({message: req});
 }
