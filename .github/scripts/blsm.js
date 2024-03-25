@@ -1,9 +1,6 @@
 const axios = require('axios');
 
 const commitMessage = process.env.COMMIT_MESSAGE;
-const commitAuthor = process.env.COMMIT_AUTHOR;
-const commitSha = process.env.COMMIT_SHA;
-const commitRef = process.env.COMMIT_REF;
 const commitRepo = process.env.COMMIT_REPO;
 const issueNumber = process.env.ISSUE_NUMBER;
 const issueTitle = process.env.ISSUE_TITLE;
