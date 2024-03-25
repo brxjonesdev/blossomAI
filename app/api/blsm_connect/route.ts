@@ -1,9 +1,11 @@
 import {NextRequest, NextResponse} from 'next/server';
+import { createClient } from '@/utils/supabase/server';
 
 export async function GET(req: NextRequest) {
   return NextResponse.json({message: 'Hello, world!'});
 }
 export async function POST(req: NextRequest) {
+  const supabase = createClient();
   const body = await req.json();
   if (!body) {
     return NextResponse.json({ error: 'Missing body' }, { status: 400 });
@@ -11,6 +13,28 @@ export async function POST(req: NextRequest) {
 
   if (!body.type) {
     return NextResponse.json({ error: 'Missing body type' }, { status: 400 });
+  }
+
+  // check if user is in the database
+  const { data, error } = await supabase
+    .from('users')
+    .select('githubusername')
+    .eq('githubusername', body.username);
+
+  // if user is not in the database, add them
+  if (!data) {
+    await supabase.from('users').insert({ githubusername: body.username });
+  }
+
+  // if user is in the database, now check if the user has a repository that matches the request
+  const { data: repoData, error: repoError } = await supabase
+    .from('connectedrepositories')
+    .select('respositoryname')
+    .eq('respositoryname', body.repo);
+
+    // if the repository is not in the database, add it
+  if (!repoData) {
+    await supabase.from('connectedrepositories').insert({ respositoryname: body.repo });
   }
 
   switch (body.type) {
@@ -24,7 +48,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Received pull request body' });
     case 'push':
       console.log('Received commit body:', body.commitDetails);
-    //   send body to the bodybase
+      supabase.from('commits').insert(body.commitDetails);
       return NextResponse.json({ message: 'Received commit body' });
     default:
       console.log('Invalid body type received:', body.type);

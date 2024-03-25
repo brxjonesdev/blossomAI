@@ -13,11 +13,14 @@ const prRepo = process.env.PR_REPO;
 const timestamp = process.env.TIMESTAMP;
 const eventType = process.env.TYPE;
 const username = process.env.USER;
+const repo = process.env.REPO;
 
 
 const dataFromAction = {
   type: eventType,
   timestamp: timestamp,
+  repo: repo,
+  username: username,
   commitDetails: {
     timestamp: timestamp,
     username: username,
