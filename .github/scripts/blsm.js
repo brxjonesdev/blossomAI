@@ -53,7 +53,7 @@ function sendToBackend(data) {
       console.log('Response from microservice:', response.data);
     })
     .catch(error => {
-      console.error('Error sending data to microservice:', error);
+      console.error('Error sending data:', error);
     });
 }
 
