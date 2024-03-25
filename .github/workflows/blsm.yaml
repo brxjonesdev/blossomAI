@@ -46,4 +46,7 @@ jobs:
         PR_TITLE: ${{ github.event.pull_request.title }}
         PR_BODY: ${{ github.event.pull_request.body }}
         PR_REPO: ${{ github.repository }}
+        TIMESTAMP: ${{ github.event.head_commit.timestamp }}
+        TYPE: ${{ github.event_name }}
+
 

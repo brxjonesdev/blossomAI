@@ -1,4 +1,3 @@
-
 const commitMessage = process.env.COMMIT_MESSAGE;
 const commitAuthor = process.env.COMMIT_AUTHOR;
 const commitSha = process.env.COMMIT_SHA;
@@ -12,6 +11,8 @@ const prNumber = process.env.PR_NUMBER;
 const prTitle = process.env.PR_TITLE;
 const prBody = process.env.PR_BODY;
 const prRepo = process.env.PR_REPO;
+const timestamp = process.env.TIMESTAMP;
+const eventType = process.env.TYPE;
 
 // Example: Logging commit message and author
 console.log('Commit Message:', commitMessage);
@@ -27,5 +28,81 @@ console.log('PR Number:', prNumber);
 console.log('PR Title:', prTitle);
 console.log('PR Body:', prBody);
 console.log('PR Repo:', prRepo);
+console.log('Timestamp:', timestamp);
+
+const dataFromAction = {
+  type: eventType,
+  timestamp: timestamp,
+  commitDetails: {
+    message: commitMessage,
+    author: commitAuthor,
+    sha: commitSha,
+    ref: commitRef,
+    repo: commitRepo,
+  },
+  pullRequestDetails: {
+    number: prNumber,
+    title: prTitle,
+    body: prBody,
+    repo: prRepo,
+  },
+    issueDetails: {
+        number: issueNumber,
+        title: issueTitle,
+        body: issueBody,
+        repo: issueRepo,
+    },
+}
+
+// We need to send the data to the backend
+function sendToBackend(data) {
+    switch (data.type) {
+        case 'issue':
+            console.log('Sending issue data to backend:', data.issueDetails);
+            try{
+                fetch('http://localhost:3000/api/blsm_connect', {
+                    method: 'POST',
+                    body: JSON.stringify(data.issueDetails),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            break;
+        case 'pull_request':
+            console.log('Sending pull request data to backend:', data.pullRequestDetails);
+            try{
+                fetch('http://localhost:3000/api/blsm_connect', {
+                    method: 'POST',
+                    body: JSON.stringify(data.pullRequestDetails),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            break;
+        case 'push':
+            console.log('Sending commit data to backend:', data.commitDetails);
+            try{
+                fetch('http://localhost:3000/api/blsm_connect', {
+                    method: 'POST',
+                    body: JSON.stringify(data.commitDetails),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            break;
+        default:
+            console.log(':)');
+    }
+  
+}
 
 
