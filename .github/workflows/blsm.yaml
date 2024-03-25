@@ -28,6 +28,7 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+      run: npm install axios
 
     - name: Excute BLSM script
       run: node .github/scripts/blsm.js
