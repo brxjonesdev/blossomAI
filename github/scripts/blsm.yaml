@@ -1,0 +1,49 @@
+name: BLSM_AI helper
+
+
+# when we make the script, main will be whatever the user selects in the cli
+on:
+  push:
+    branches:
+      - master  
+  pull_request:
+    types: [opened, closed]
+    branches:
+      - master
+  issues:
+    types: [opened, closed]
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - name: Install dependencies
+      run: npm install
+
+    - name: Excute BLSM script
+      run: node .github/scripts/blsm.ts
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        COMMIT_AUTHOR: ${{ github.event.head_commit.author.name }}
+        COMMIT_SHA: ${{ github.sha }}
+        COMMIT_REF: ${{ github.ref }}
+        COMMIT_REPO: ${{ github.repository }}
+        ISSUE_NUMBER: ${{ github.event.issue.number }}
+        ISSUE_TITLE: ${{ github.event.issue.title }}
+        ISSUE_BODY: ${{ github.event.issue.body }}
+        ISSUE_REPO: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        PR_TITLE: ${{ github.event.pull_request.title }}
+        PR_BODY: ${{ github.event.pull_request.body }}
+        PR_REPO: ${{ github.repository }}
+
