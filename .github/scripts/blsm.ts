@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 const commitMessage = process.env.COMMIT_MESSAGE;
 const commitAuthor = process.env.COMMIT_AUTHOR;
 const commitSha = process.env.COMMIT_SHA;
