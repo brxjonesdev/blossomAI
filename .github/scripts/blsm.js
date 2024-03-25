@@ -17,22 +17,6 @@ const timestamp = process.env.TIMESTAMP;
 const eventType = process.env.TYPE;
 const username = process.env.USER;
 
-console.log('Commit Message:', commitMessage);
-console.log('Commit Author:', commitAuthor);
-console.log('Commit SHA:', commitSha);
-console.log('Commit Ref:', commitRef);
-console.log('Commit Repo:', commitRepo);
-console.log('Issue Number:', issueNumber);
-console.log('Issue Title:', issueTitle);
-console.log('Issue Body:', issueBody);
-console.log('Issue Repo:', issueRepo);
-console.log('PR Number:', prNumber);
-console.log('PR Title:', prTitle);
-console.log('PR Body:', prBody);
-console.log('PR Repo:', prRepo);
-console.log('Timestamp:', timestamp);
-console.log('Username:', username);
-
 
 const dataFromAction = {
   type: eventType,
@@ -60,6 +44,8 @@ const dataFromAction = {
     repo: issueRepo,
   },
 }
+
+console.log('Data from action:', dataFromAction);
 
 function sendToBackend(data) {
   axios.post('http://localhost:3001/api/blsm_connect', data)
