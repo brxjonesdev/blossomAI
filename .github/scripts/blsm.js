@@ -15,6 +15,7 @@ const prBody = process.env.PR_BODY;
 const prRepo = process.env.PR_REPO;
 const timestamp = process.env.TIMESTAMP;
 const eventType = process.env.TYPE;
+const username = process.env.USER;
 
 console.log('Commit Message:', commitMessage);
 console.log('Commit Author:', commitAuthor);
@@ -30,11 +31,15 @@ console.log('PR Title:', prTitle);
 console.log('PR Body:', prBody);
 console.log('PR Repo:', prRepo);
 console.log('Timestamp:', timestamp);
+console.log('Username:', username);
+
 
 const dataFromAction = {
   type: eventType,
   timestamp: timestamp,
   commitDetails: {
+    timestamp: timestamp,
+    username: username,
     message: commitMessage,
     author: commitAuthor,
     sha: commitSha,
@@ -42,12 +47,16 @@ const dataFromAction = {
     repo: commitRepo,
   },
   pullRequestDetails: {
+    timestamp: timestamp,
+    username: username,
     number: prNumber,
     title: prTitle,
     body: prBody,
     repo: prRepo,
   },
   issueDetails: {
+    timestamp: timestamp,
+    username: username,
     number: issueNumber,
     title: issueTitle,
     body: issueBody,

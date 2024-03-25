@@ -50,3 +50,4 @@ jobs:
         PR_REPO: ${{ github.repository }}
         TIMESTAMP: ${{ github.event.head_commit.timestamp }}
         TYPE: ${{ github.event_name }}
+        USER: ${{ github.actor }}
