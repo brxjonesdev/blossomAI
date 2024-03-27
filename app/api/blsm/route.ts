@@ -56,13 +56,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: newError.message }, { status: 500 });
     }
   }
-  
-
-  
-  // Check if the repo the user is sending the request for is in the database, if not, add it. If it is, proceed.
-
-
-  
+  // Check if the repo the user is sending the request for is in the database, if not, add it. If it is, proceed.  
   switch (body.activityInfo.type) {
     case 'issue':
       console.log('Received issue body:', body.issueDetails);
