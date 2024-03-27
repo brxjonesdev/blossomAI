@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import GithubAuthBtn from '@/components/login-btn';
 export default function LandingPage() {
   return (
     <main className='font-montserrat grow flex justify-center'>
@@ -9,6 +10,7 @@ export default function LandingPage() {
         <p className='font-cabin text-center p-2 md:text-xl'>
           {`Streamline your project updates effortlessly with our platform. BlossomAI simplifies progress reporting for developers, integrating seamlessly with GitHub. Share your journey transparently and engage your audience effectively.`}
         </p>
+        <GithubAuthBtn />
         </section>
         <div className='my-2 border-b-2 border-t-2 border-blsm_accent' />
         <section className='flex flex-col gap-4'>

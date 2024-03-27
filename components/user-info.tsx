@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
@@ -18,8 +17,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { createBrowserClient } from '@supabase/ssr';
+import { useState, useEffect } from 'react';
+
+type UserInfoProps = {
+  username: string;
+    avatar: string;
+    perferredName: string;
+}
 
 export default function UserInfo() {
+  const [user, setUser] = useState<UserInfoProps | null>(null);
+  useEffect(() => {
+    getUser()
+  }, [])
   const repoUpdates: string[] = [
     // 'Repo 1: 3 new commits',
     // 'Repo 2: 1 new commit',
@@ -27,15 +38,45 @@ export default function UserInfo() {
     // 'Repo 4: 1 new commit',
   ];
 
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+ async function getUser() {
+    console.log('getUser')
+    const user =  await supabase.auth.getUser()
+    if (!user) {
+      console.log('no user')
+      return
+    }
+    if (user.error) {
+      console.log('error', user.error)
+      return
+    }
+
+
+    console.log("bookie", user.data.user.user_metadata)
+    const formattedUserData = {
+      username: user.data.user.user_metadata.user_name,
+      avatar: user.data.user.user_metadata.avatar_url,
+      perferredName: user.data.user.user_metadata.preferred_name
+    }
+    setUser(formattedUserData)
+    return
+  }
+ 
+
   return (
     <div className='flex flex-col gap-2 rounded-md border-2 p-4'>
       <div className='flex flex-wrap items-center justify-between gap-2  '>
         <div className='flex items-center gap-2  '>
           <Avatar>
-            <AvatarImage src='' />
-            <AvatarFallback>BX</AvatarFallback>
+            <AvatarImage src={user?.avatar} />
+            <AvatarFallback>
+              <p>{user?.username?.charAt(0).toUpperCase()}</p>
+            </AvatarFallback>
           </Avatar>
-          <p className='text-lg font-bold'>Rory Mercury</p>
+          <p className='text-lg font-bold'>{user?.perferredName ? user?.perferredName : user?.username}</p>
           
         </div>
         <Dialog>
@@ -47,7 +88,7 @@ export default function UserInfo() {
                   {/* Logout, LinkedGithub */}
                     <div className='flex items-center justify-between'>
                     <p className=''>
-                      Your Linked Github Account: <span className='text-blsm_accent italic'>@rorymercury</span>
+                      Your Linked Github Account: <span className='text-blsm_accent italic'>@{user?.username}</span>
                     </p>
                     <button className='bg-blsm_accent rounded-sm p-0.5 hover:px-1 transition-all ease-in-out hover:rounded-md'>Unlink?</button>
                     </div>
