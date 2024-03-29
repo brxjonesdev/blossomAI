@@ -1,14 +1,13 @@
-import {NextRequest, NextResponse} from 'next/server';
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-
+import { NextRequest, NextResponse } from 'next/server';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 
 type EventData = {
-  type?: string; 
+  type?: string;
   timestamp?: string;
   blsmRepoID?: number;
   username?: string;
-  commitMessage?: string; 
+  commitMessage?: string;
   issueAction?: string;
   issueNumber?: string;
   issueTitle?: string;
@@ -17,17 +16,14 @@ type EventData = {
   pullRequestNumber?: string;
   pullRequestTitle?: string;
   pullRequestBody?: string;
-}
-
-
-
+};
 
 export async function GET(req: NextRequest) {
-  return NextResponse.json({message: 'Hello, world!'});
+  return NextResponse.json({ message: 'Hello, world!' });
 }
 
 export async function POST(req: NextRequest) {
-  const cookieStore = cookies()
+  const cookieStore = cookies();
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -35,33 +31,33 @@ export async function POST(req: NextRequest) {
     {
       cookies: {
         get(name: string) {
-          return cookieStore.get(name)?.value
+          return cookieStore.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
-          cookieStore.set({ name, value, ...options })
+          cookieStore.set({ name, value, ...options });
         },
         remove(name: string, options: CookieOptions) {
-          cookieStore.set({ name, value: '', ...options })
+          cookieStore.set({ name, value: '', ...options });
         },
       },
     }
-  )
-  const body:EventData = await req.json();
-  
+  );
+  const body: EventData = await req.json();
+
   switch (body.type) {
-    case "commit":
-      console.log("Handling commit event...");
+    case 'commit':
+      console.log('Handling commit event...');
       await supabase.from('Updates').insert([
         {
           type: body.type,
           created_at: body.timestamp,
           parent_repo: body.blsmRepoID,
           message: body.commitMessage,
-        }
+        },
       ]);
       break;
-    case "issue":
-      console.log("Handling issue event...");
+    case 'issue':
+      console.log('Handling issue event...');
       await supabase.from('Updates').insert([
         {
           type: body.type,
@@ -70,13 +66,13 @@ export async function POST(req: NextRequest) {
           action: body.issueAction,
           title: body.issueTitle,
           body: body.issueBody,
-          number: body.issueNumber
-        }
+          number: body.issueNumber,
+        },
       ]);
       break;
-    case "pullRequest":
-      console.log("Handling pull request event...");
-      
+    case 'pullRequest':
+      console.log('Handling pull request event...');
+
       const { data, error } = await supabase.from('Updates').insert([
         {
           type: body.type,
@@ -85,18 +81,20 @@ export async function POST(req: NextRequest) {
           action: body.pullRequestAction,
           title: body.pullRequestTitle,
           body: body.pullRequestBody,
-          number: body.pullRequestNumber
-        }
+          number: body.pullRequestNumber,
+        },
       ]);
       if (error) {
-        console.log("Error inserting pull request event:", error.message);
+        console.log('Error inserting pull request event:', error.message);
       }
       break;
     default:
-      console.log("Unknown event type");
+      console.log('Unknown event type');
       break;
   }
-  
 
-  return NextResponse.json({message: 'Hello, world!', body: body}, { status: 200 });
+  return NextResponse.json(
+    { message: 'Hello, world!', body: body },
+    { status: 200 }
+  );
 }

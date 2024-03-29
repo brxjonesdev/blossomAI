@@ -66,8 +66,8 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        montserrat: "var(--montserrat)",
-        cabin: "var(--cabin)",
+        montserrat: 'var(--montserrat)',
+        cabin: 'var(--cabin)',
       },
       keyframes: {
         'accordion-down': {
