@@ -1,233 +1,150 @@
 import React from 'react';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers';
+import { Database } from '../../../types/supabase';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
-export default function Content() {
-  const reposfromDB = [
-    {
-      name: 'Project X',
-      pull_requests: [
-        {
-          title: 'Fix login page styling',
-          description: 'Adjust the padding and alignment on the login page',
-          status: 'open',
-          timestamp: '2024-03-25T10:15:00Z',
-        },
-        {
-          title: 'Add user authentication middleware',
-          description: 'Implement middleware for user authentication',
-          status: 'closed',
-          timestamp: '2024-03-24T14:30:00Z',
-        },
-      ],
-      issues: [
-        {
-          title: 'Bug: User profile not updating',
-          description: 'User profile data not updating after edit',
-          status: 'open',
-          timestamp: '2024-03-25T09:45:00Z',
-        },
-        {
-          title: 'Feature request: Dark mode',
-          description: 'Add dark mode option for better user experience',
-          status: 'closed',
-          timestamp: '2024-03-23T16:20:00Z',
-        },
-      ],
-      commits: [
-        {
-          title: 'Implement forgot password feature',
-          description: 'Added functionality to reset user password',
-          status: 'open',
-          timestamp: '2024-03-25T08:00:00Z',
-        },
-        {
-          title: 'Update API endpoints for user data',
-          description: 'Updated API endpoints to retrieve and update user data',
-          status: 'closed',
-          timestamp: '2024-03-24T17:10:00Z',
-        },
-      ],
-    },
-    {
-      name: 'Project Y',
-      pull_requests: [
-        {
-          title: 'Refactor database queries',
-          description: 'Optimize database queries for better performance',
-          status: 'open',
-          timestamp: '2024-03-25T11:30:00Z',
-        },
-        {
-          title: 'Implement email notification system',
-          description: 'Add functionality to send email notifications to users',
-          status: 'closed',
-          timestamp: '2024-03-24T13:45:00Z',
-        },
-      ],
-      issues: [
-        {
-          title: 'Bug: Incorrect data displayed on dashboard',
-          description: 'Data on dashboard not matching database records',
-          status: 'open',
-          timestamp: '2024-03-25T08:50:00Z',
-        },
-        {
-          title: 'Feature request: Export data to CSV',
-          description:
-            'Allow users to export data from the application to CSV format',
-          status: 'closed',
-          timestamp: '2024-03-23T15:40:00Z',
-        },
-      ],
-      commits: [
-        {
-          title: 'Fix error handling in authentication module',
-          description: 'Improved error handling for authentication errors',
-          status: 'open',
-          timestamp: '2024-03-25T07:20:00Z',
-        },
-        {
-          title: 'Update dependencies to latest versions',
-          description:
-            'Updated project dependencies to the latest compatible versions',
-          status: 'closed',
-          timestamp: '2024-03-24T16:30:00Z',
-        },
-      ],
-    },
-    {
-      name: 'Project Z',
-      pull_requests: [
-        {
-          title: 'Add search functionality',
-          description:
-            'Implement search functionality for better data discovery',
-          status: 'open',
-          timestamp: '2024-03-25T09:20:00Z',
-        },
-        {
-          title: 'Fix pagination bug',
-          description: 'Fix bug causing incorrect pagination on results page',
-          status: 'closed',
-          timestamp: '2024-03-24T12:40:00Z',
-        },
-      ],
-      issues: [
-        {
-          title: 'Bug: Unable to upload images',
-          description: 'Users encountering errors when trying to upload images',
-          status: 'open',
-          timestamp: '2024-03-25T07:35:00Z',
-        },
-        {
-          title: 'Feature request: Add comments section',
-          description: 'Allow users to add comments to posts',
-          status: 'closed',
-          timestamp: '2024-03-23T14:15:00Z',
-        },
-      ],
-      commits: [
-        {
-          title: 'Optimize image loading performance',
-          description:
-            'Implemented lazy loading for images to improve page load times',
-          status: 'open',
-          timestamp: '2024-03-25T06:10:00Z',
-        },
-        {
-          title: 'Update styling for mobile responsiveness',
-          description: 'Applied CSS changes to improve mobile user experience',
-          status: 'closed',
-          timestamp: '2024-03-24T11:50:00Z',
-        },
-      ],
-    },
-    {
-      name: 'Project Alpha',
-      pull_requests: [
-        {
-          title: 'Refactor front-end codebase',
-          description: 'Restructure front-end code for better maintainability',
-          status: 'open',
-          timestamp: '2024-03-25T08:45:00Z',
-        },
-        {
-          title: 'Implement user roles and permissions',
-          description:
-            'Add functionality to assign different roles and permissions to users',
-          status: 'closed',
-          timestamp: '2024-03-24T10:20:00Z',
-        },
-      ],
-      issues: [
-        {
-          title: 'Bug: Admin dashboard not loading',
-          description: 'Admin dashboard failing to load due to server error',
-          status: 'open',
-          timestamp: '2024-03-25T06:55:00Z',
-        },
-        {
-          title: 'Feature request: Add file upload feature',
-          description: 'Allow users to upload files to the application',
-          status: 'closed',
-          timestamp: '2024-03-23T13:30:00Z',
-        },
-      ],
-      commits: [
-        {
-          title: 'Fix memory leak in backend service',
-          description: 'Identified and resolved memory leak in backend service',
-          status: 'open',
-          timestamp: '2024-03-25T05:30:00Z',
-        },
-        {
-          title: 'Update third-party libraries for security patches',
-          description:
-            'Updated third-party libraries to address security vulnerabilities',
-          status: 'closed',
-          timestamp: '2024-03-24T09:40:00Z',
-        },
-      ],
-    },
-  ];
+import Link from 'next/link';
+import BLSMAI from '@/components/blsm-ai';
 
-  // get total number of pull requests, issues, and commits
+export default async function Content() {
+  const cookieStore = cookies();
+  const supabase = createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    }
+  );
+  const { data, error: authError  } = await supabase.auth.getUser()
+  if (authError || !data?.user) {
+    redirect('/')
+  }
+
+  const { data: reposfromDB, error } = await supabase
+    .from('Repos')
+    .select('repo_name, Updates(*)')
+    .eq('owner', 'Braxton-Jones');
+
   let totalPullRequests = 0;
   let totalIssues = 0;
   let totalCommits = 0;
   let totalRepos = 0;
-  reposfromDB.forEach((repo) => {
-    totalPullRequests += repo.pull_requests.length;
-    totalIssues += repo.issues.length;
-    totalCommits += repo.commits.length;
-    totalRepos += 1;
+  reposfromDB?.forEach((repo) => {
+    totalPullRequests += repo.Updates.filter(
+      (update) => update.type === 'pull_request'
+    ).length;
+    totalIssues += repo.Updates.filter(
+      (update) => update.type === 'issue'
+    ).length;
+    totalCommits += repo.Updates.filter(
+      (update) => update.type === 'commit'
+    ).length;
+    totalRepos++;
   });
 
   return (
-    <section className='flex grow flex-col items-center gap-2 rounded-md border-2 p-4 pt-8 font-montserrat'>
-      <h1 className='max-w-[600px] font-montserrat text-xl font-black md:text-3xl '>
-        You have{' '}
-        <span className='text-blsm_primary'>
-          {totalPullRequests} pull requests
-        </span>
-        , <span className='text-blsm_secondary'>{totalIssues} issues</span>, &{' '}
-        <span className='text-blsm_accent'>{totalCommits} commmits</span> across{' '}
-        {totalRepos} repositories.
-      </h1>
-      <p className='font-cabin'>
-        Select which repository you would like to view updates for.
-      </p>
-      <section className='flex w-full flex-col gap-4 md:mt-6 md:grid md:grid-cols-3'>
-        {reposfromDB.map((repo, i) => (
-          <div
-            key={i}
-            className='flex w-full flex-col gap-2 rounded border-2 p-2'
-          >
-            <h2 className='font-montserrat text-lg font-bold'>{repo.name}</h2>
-            <p className='font-cabin'>
-              {repo.pull_requests.length} pull requests, {repo.issues.length}{' '}
-              issues, {repo.commits.length} commits
-            </p>
-          </div>
+    <section className='flex grow flex-col items-center gap-6 rounded-md border-2 p-4 pt-8 font-montserrat'>
+      <div className='flex flex-col items-center'>
+        <h1 className='max-w-[600px] text-center font-montserrat text-xl font-black md:text-3xl'>
+          You have{' '}
+          <span className='text-blsm_primary'>
+            {totalPullRequests} pull request{totalPullRequests > 1 ? 's' : ''}
+          </span>
+          ,{' '}
+          <span className='text-blsm_secondary'>
+            {totalIssues} issue{totalIssues > 1 ? 's' : ''}
+          </span>
+          , &{' '}
+          <span className='text-blsm_accent'>
+            {totalCommits} commmit{totalCommits > 1 ? 's' : ''}
+          </span>{' '}
+          across {totalRepos} repositor{totalRepos > 1 ? 'ies' : 'y'}.
+        </h1>
+        <p className='text-center font-cabin'>
+          Select which repository you would like to view updates for.
+        </p>
+      </div>
+      <section className='flex flex-wrap gap-4 md:grid md:grid-cols-3 '>
+        {reposfromDB?.map((repo, i) => (
+          <HoverCard key={i}>
+            <HoverCardTrigger className='w-full'>
+              <Dialog>
+                <DialogTrigger className='h-full w-full'>
+                  <div className='flex h-full flex-wrap items-center justify-between rounded-md border-2 p-3 py-7 hover:border-blsm_accent'>
+                    <div className='w-full'>
+                      <h2 className='text-lg font-bold'>{repo.repo_name}</h2>
+                      <p>
+                        Last updated{' : '}{' '}
+                        <span className='text-sm'>
+                          {repo.Updates[0].created_at.slice(0, 10)}
+                        </span>
+                      </p>
+                      <span className='text-sm text-gray-500'>
+                        {repo.Updates.length} updates
+                      </span>
+                    </div>
+                    <div className='w-full md:hidden'>
+                      <ul className='flex flex-col gap-2'>
+                        {repo.Updates.map((update, i) => (
+                          <li key={i} className='flex flex-col gap-1'>
+                            <h3 className='text-sm font-bold'>{update.type}</h3>
+                            <p className='text-xs'>{update.message}</p>
+                            <p className='text-xs'>{update.body}</p>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className='w-full max-w-4xl px-8 py-10'>
+                  <DialogHeader>
+                    <DialogTitle className='font-montserrat font-black'>
+                      {repo.repo_name}
+                    </DialogTitle>
+                    <DialogDescription className='font-cabin text-blsm_accent'>
+                      {repo.Updates.length} updates
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className='border-b-1 border-t-2 border-blsm_accent' />
+                  <DialogDescription>
+                    <BLSMAI repoName={repo.repo_name} updates={repo.Updates} />
+                  </DialogDescription>
+                </DialogContent>
+              </Dialog>
+            </HoverCardTrigger>
+            <HoverCardContent className=' hidden w-full md:block'>
+              <p className='text-center text-sm font-black'>Updates</p>
+              <ul className='flex flex-col gap-2'>
+                {repo.Updates.map((update, i) => (
+                  <li key={i} className='flex flex-col gap-1'>
+                    <h3 className='font-montserrat text-sm font-bold'>
+                      {update.type}
+                    </h3>
+                    <p className='font-cabin text-xs'>{update.message}</p>
+                    <p className='font-cabin text-xs'>{update.body}</p>
+                  </li>
+                ))}
+              </ul>
+            </HoverCardContent>
+          </HoverCard>
         ))}
       </section>
     </section>

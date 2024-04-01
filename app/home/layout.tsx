@@ -26,27 +26,8 @@ export default async function DashboardLayout({
     <div className='my-4 flex grow flex-col gap-4 md:flex-row'>
       <Suspense fallback={<div>Loading...</div>}>
         <UserInfo userInfo={userInfo} />
-        
       </Suspense>
       {children}
     </div>
   );
-}
-
-{
-  /*
-                      {
-  "id": 7,
-  "created_at": "2024-03-27T12:00:00+00:00",
-  "parent_repo": 1,
-  "action": null,
-  "title": null,
-  "body": null,
-  "number": null,
-  "message": "Wants to learn Framer Motion too",
-  "type": "commit",
-  "sender": "Braxton-Jones"
-}
-                      
-                      */
 }
