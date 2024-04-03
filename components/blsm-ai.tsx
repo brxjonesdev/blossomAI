@@ -6,12 +6,12 @@ import { useState } from 'react';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-  } from "@/components/ui/accordion"
-  
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+
 type UpdateProps = {
   action: string | null;
   body: string | null;
@@ -27,9 +27,9 @@ type UpdateProps = {
 
 type ContentType = 'tweet' | 'short-post' | 'email' | 'other' | 'none';
 interface ButtonProps {
-    id: number;
-    label: string;
-  }
+  id: number;
+  label: string;
+}
 export default function BLSMAI({
   repoName,
   updates,
@@ -37,48 +37,51 @@ export default function BLSMAI({
   repoName: string;
   updates: UpdateProps;
 }) {
-const [contentType, setContentType] = useState<string>(''); 
-const [selectedButton, setSelectedButton] = useState<number | null>(null);
-const [content, setContent] = useState<string>('');
+  const [contentType, setContentType] = useState<string>('');
+  const [selectedButton, setSelectedButton] = useState<number | null>(null);
+  const [content, setContent] = useState<string>('');
 
-const handleButtonClick = (buttonId: number) => {
-    setContentType(buttons.find((button) => button.id === buttonId)?.label ?? '');
+  const handleButtonClick = (buttonId: number) => {
+    setContentType(
+      buttons.find((button) => button.id === buttonId)?.label ?? ''
+    );
     setSelectedButton(buttonId);
-};
+  };
 
-const buttons: ButtonProps[] = [
+  const buttons: ButtonProps[] = [
     { id: 1, label: 'Social' },
     { id: 2, label: 'Blog' },
     { id: 3, label: 'Linkedin' },
-];
+  ];
 
-function generateContent() {
+  function generateContent() {
     fetch('http://localhost:3000/api/ai', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ updates, contentType}),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ updates, contentType }),
     })
-        .then((res) => res.json())
-        .then((data) => {
-            // Handle the response data here
-            setContent("Hello, world!");
-            console.log(data);
-        })
-        .catch((error) => {
-            // Handle any errors here
-            console.error(error);
-        });
-} 
-
+      .then((res) => res.json())
+      .then((data) => {
+        // Handle the response data here
+        setContent('Hello, world!');
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle any errors here
+        console.error(error);
+      });
+  }
 
   return (
     <section className='flex flex-col gap-6'>
       <div className='flex flex-col gap-3'>
-        <h3 className='font-montserrat text-lg font-black hidden md:block'>Recent Updates:</h3>
+        <h3 className='hidden font-montserrat text-lg font-black md:block'>
+          Recent Updates:
+        </h3>
 
-        <ul className=' gap-4 hidden md:flex'>
+        <ul className=' hidden gap-4 md:flex'>
           {updates.map((update, i) => (
             <li key={i} className='flex flex-col gap-1 rounded-sm border-2 p-2'>
               <h3 className='text-md font-montserrat font-bold'>
@@ -91,67 +94,68 @@ function generateContent() {
         </ul>
 
         <Accordion type='single' collapsible className='md:hidden'>
-         <AccordionItem value='yes'>
+          <AccordionItem value='yes'>
             <AccordionTrigger>
-                <Label className='text-lg font-montserrat font-black'>Recent Updates</Label>
+              <Label className='font-montserrat text-lg font-black'>
+                Recent Updates
+              </Label>
             </AccordionTrigger>
             <AccordionContent>
-                <ul className='flex flex-col gap-2'>
+              <ul className='flex flex-col gap-2'>
                 {updates.map((update, i) => (
-                    <li key={i} className='flex flex-col gap-1'>
+                  <li key={i} className='flex flex-col gap-1'>
                     <h3 className='text-sm font-bold'>{update.type}</h3>
                     <p className='text-xs'>{update.message}</p>
                     <p className='text-xs'>{update.body}</p>
-                    </li>
+                  </li>
                 ))}
-                </ul>
+              </ul>
             </AccordionContent>
-        </AccordionItem>
+          </AccordionItem>
         </Accordion>
-
       </div>
 
-      
-      <div className='flex flex-col gap-3'> 
-    <h2 className='font-montserrat text-lg font-black'>What are you making it for ?</h2>
+      <div className='flex flex-col gap-3'>
+        <h2 className='font-montserrat text-lg font-black'>
+          What are you making it for ?
+        </h2>
 
-
-      <div className='flex gap-2 flex-col md:flex-row'>
-      {buttons.map((button) => (
-        <button
-          key={button.id}
-          onClick={() => handleButtonClick(button.id)}
-            className={`
+        <div className='flex flex-col gap-2 md:flex-row'>
+          {buttons.map((button) => (
+            <button
+              key={button.id}
+              onClick={() => handleButtonClick(button.id)}
+              className={`
             ${
               selectedButton === button.id
                 ? 'bg-blsm_primary text-blsm_black'
                 : ''
             }
-            p-2 rounded-md border-2 w-full font-cabin font-bold`}
-        >
-          {button.label}
-        </button>
-      ))}
+            w-full rounded-md border-2 p-2 font-cabin font-bold`}
+            >
+              {button.label}
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
-    
-    <button 
-    className='bg-blsm_secondary text-blsm_black p-2 rounded-md border-2 w-full font-cabin font-bold disabled:bg-blsm_black disabled:text-blsm_primary disabled:cursor-not-allowed' 
-    onClick={() => generateContent()}
-    disabled={!selectedButton}
-    >
-        Generate Content
-    </button>
 
-    {/* Content */}
-    <div className=''>
+      <button
+        className='w-full rounded-md border-2 bg-blsm_secondary p-2 font-cabin font-bold text-blsm_black disabled:cursor-not-allowed disabled:bg-blsm_black disabled:text-blsm_primary'
+        onClick={() => generateContent()}
+        disabled={!selectedButton}
+      >
+        Generate Content
+      </button>
+
+      {/* Content */}
+      <div className=''>
         <h2 className='font-montserrat text-lg font-black'>Content</h2>
         <textarea
-            className='w-full p-2 rounded-md border-2 font-cabin font-bold'
-            value={content}
-            readOnly
+          className='w-full rounded-md border-2 p-2 font-cabin font-bold'
+          value={content}
+          readOnly
         />
-    </div>
+      </div>
     </section>
   );
 }

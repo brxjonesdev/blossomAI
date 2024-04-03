@@ -93,7 +93,9 @@ export async function POST(req: NextRequest) {
       break;
   }
 
-  return NextResponse.json(
-    { message: 'Event proccesed', body: body , status: 200}
-  );
+  return NextResponse.json({
+    message: 'Event proccesed',
+    body: body,
+    status: 200,
+  });
 }

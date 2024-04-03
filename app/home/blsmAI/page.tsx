@@ -1,6 +1,6 @@
 import React from 'react';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { Database } from '../../../types/supabase';
 import {
@@ -33,9 +33,9 @@ export default async function Content() {
       },
     }
   );
-  const { data, error: authError  } = await supabase.auth.getUser()
+  const { data, error: authError } = await supabase.auth.getUser();
   if (authError || !data?.user) {
-    redirect('/')
+    redirect('/');
   }
 
   const { data: reposfromDB, error } = await supabase
