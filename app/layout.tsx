@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat, Cabin } from 'next/font/google';
 import './globals.css';
 import Link from 'next/link';
-
+import { Toaster } from "@/components/ui/toaster"
 const montserrat = Montserrat({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
@@ -40,6 +40,7 @@ export default function RootLayout({
               <Link href='/home'>BlossomAI</Link>
             </p>
           </header>
+          <Toaster />        
           <section className='mx-4 flex w-full max-w-7xl flex-1 flex-col px-4 md:justify-center'>
             {children}
           </section>

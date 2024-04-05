@@ -11,6 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Button } from './ui/button';
 
 type UpdateProps = {
   action: string | null;
@@ -76,6 +77,7 @@ export default function BLSMAI({
 
   return (
     <section className='flex flex-col gap-6'>
+      
       <div className='flex flex-col gap-3'>
         <h3 className='hidden font-montserrat text-lg font-black md:block'>
           Recent Updates:

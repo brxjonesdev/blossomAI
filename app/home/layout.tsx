@@ -6,8 +6,7 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className='my-4 flex grow flex-col gap-4 md:flex-row'>
-        <UserInfo />
+    <div className='flex grow flex-col gap-4 md:flex-row'>
       {children}
     </div>
   );

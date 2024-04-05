@@ -31,7 +31,7 @@ export default async function UserInfo() {
   const user = data?.user?.user_metadata;
 
   return (
-    <div className='flex flex-col gap-2 rounded-md border-2 p-4'>
+    <div className='flex flex-col gap-2 rounded-md border-2 p-4 min-w-[400px]'>
       <div className='flex flex-wrap items-center justify-between gap-2  '>
         <div className='flex items-center gap-5'>
           <Avatar>
@@ -50,6 +50,11 @@ export default async function UserInfo() {
       </div>
       <div className='my-2 border-b-2 border-t-2 border-blsm_accent' />
       <RepoList user={user} />
+      <section className='flex flex-col gap-2'>
+        <p className='text-center'>
+          Made with ❤️ by{' '} brxjonesdev
+        </p>
+      </section>
     </div>
   );
 }
