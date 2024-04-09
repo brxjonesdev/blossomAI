@@ -11,8 +11,8 @@ import {
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
-import { useToast } from "@/components/ui/use-toast"
-import { Button } from "@/components/ui/button"
+import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
 function convertToSimpleDateTime(dateTimeString: Date) {
   const dateTime = new Date(dateTimeString);
 
@@ -33,23 +33,22 @@ function convertToSimpleDateTime(dateTimeString: Date) {
 }
 
 export default function RepoList(userInfo: any) {
- 
   const { user } = userInfo;
 
-  const {toast} = useToast()
+  const { toast } = useToast();
   const userName = user?.user_name;
   const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
-    const [repoUpdates, setRepoUpdates] = useState<any[]>([]);
+  const [repoUpdates, setRepoUpdates] = useState<any[]>([]);
 
-  function handleNewRepo(newRepo : any) {
+  function handleNewRepo(newRepo: any) {
     toast({
-     title: `New Repo Added: ${newRepo.repo_name}/${newRepo.owner}`,
+      title: `New Repo Added: ${newRepo.repo_name}/${newRepo.owner}`,
       description: `We will now monitor ${newRepo.repo_name} for updates.`,
-    })
+    });
   }
 
   const handleDatabaseChanges = (payload: any) => {
@@ -125,140 +124,148 @@ export default function RepoList(userInfo: any) {
   return (
     <Suspense fallback={<div>Loading repo info...</div>}>
       <div className=''>
-        <div className='flex flex-col gap-2 text-lg font-montserrat'>
-      <Accordion type='single' collapsible className=''>
-        <AccordionItem value='item-1'>
-          <AccordionTrigger>
-            {' '}
-            You have {repoUpdates.length > 0 ? repoUpdates.length : 'no'} recent
-            repo changes.
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className='flex flex-col gap-2 font-cabin'>
-              <AnimatePresence>
-                {repoUpdates && repoUpdates.length > 0 ? (
-                  repoUpdates.map((update, i) => {
-                    switch (update.type) {
-                      case 'pull_request':
-                        return (
-                          <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, x: -100 }}
-                            transition={{
-                              duration: 0.5,
-                              staggerChildren: 1.5,
-                            }}
-                            className='flex flex-col flex-wrap items-center gap-2 rounded-md border-2 border-blsm_white px-3 py-4'
-                          >
-                            <div className='flex flex-col items-center'>
-                              <p>Repo: {update.parent_repo}</p>
-                              <p className='text-blsm_secondary'>
-                                {convertToSimpleDateTime(update.created_at)}
-                              </p>
-                            </div>
-                            <div className='flex justify-between'>
-                              <div className='flex gap-1'>
-                                <p>{update.title}</p>
-                                <p className='font-bold text-blsm_primary'>
-                                  #{update.number}
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <p className='italic'>{update.body}</p>
-                            </div>
-                          </motion.div>
-                        );
-                      case 'issue':
-                        return (
-                          <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, x: -100 }}
-                            transition={{
-                              duration: 0.5,
-                              staggerChildren: 1.5,
-                            }}
-                            className='flex flex-col flex-wrap items-center gap-2 rounded-md border-2 border-blsm_white px-3 py-4'
-                          >
-                            <div className='flex flex-col items-center'>
-                              <p>Repo: {update.parent_repo}</p>
-                              <p className='text-blsm_secondary'>
-                                {convertToSimpleDateTime(update.created_at)}
-                              </p>
-                            </div>
-                            <div className='flex justify-between'>
-                              <div className='flex gap-1'>
-                                <p>{update.title}</p>
-                                <p className='font-bold text-blsm_primary'>
-                                  #{update.number}
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <p className='italic'>{update.body}</p>
-                            </div>
-                          </motion.div>
-                        );
-                      case 'commit':
-                        return (
-                          <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, x: -100 }}
-                            transition={{
-                              duration: 0.5,
-                              staggerChildren: 1.5,
-                            }}
-                            className='flex flex-col flex-wrap items-center gap-2 rounded-md border-2 border-blsm_white p-2'
-                          >
-                            <div className='flex flex-col items-center'>
-                              <p>Repo: {update.parent_repo}</p>
-                              <p className='text-blsm_secondary'>
-                                Commit made @ {' '}
-                                {convertToSimpleDateTime(update.created_at)}
-                              </p>
-                            </div>
-                            <div className='flex justify-between'>
-                              <p className='italic'>Commit Message: <span className='text-blsm_accent'>{update.message}</span></p>
-                            </div>
-                          </motion.div>
-                        );
-                      default:
-                        return (
-                          <motion.p
-                            key={i}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, x: -100 }}
-                            transition={{
-                              duration: 0.5,
-                              staggerChildren: 1.5,
-                            }}
-                          >
-                            Error : {update.type} is not a valid update type.
-                          </motion.p>
-                        );
-                    }
-                  })
-                ) : (
-                  <p className='text-center font-cabin'>
-                    There are no recent updates to display.
-                  </p>
-                )}
-              </AnimatePresence>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+        <div className='flex flex-col gap-2 font-montserrat text-lg'>
+          <Accordion type='single' collapsible className=''>
+            <AccordionItem value='item-1'>
+              <AccordionTrigger>
+                {' '}
+                You have {repoUpdates.length > 0
+                  ? repoUpdates.length
+                  : 'no'}{' '}
+                recent repo changes.
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className='flex flex-col gap-2 font-cabin'>
+                  <AnimatePresence>
+                    {repoUpdates && repoUpdates.length > 0 ? (
+                      repoUpdates.map((update, i) => {
+                        switch (update.type) {
+                          case 'pull_request':
+                            return (
+                              <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, x: -100 }}
+                                transition={{
+                                  duration: 0.5,
+                                  staggerChildren: 1.5,
+                                }}
+                                className='flex flex-col flex-wrap items-center gap-2 rounded-md border-2 border-blsm_white px-3 py-4'
+                              >
+                                <div className='flex flex-col items-center'>
+                                  <p>Repo: {update.parent_repo}</p>
+                                  <p className='text-blsm_secondary'>
+                                    Pull Request {update.action} @{' '}
+                                    {convertToSimpleDateTime(update.created_at)}
+                                  </p>
+                                </div>
+                                <div className='flex justify-between'>
+                                  <div className='flex gap-1'>
+                                    <p>{update.title}</p>
+                                    <p className='font-bold text-blsm_primary'>
+                                      #{update.number}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div>
+                                  <p className='italic'>{update.body}</p>
+                                </div>
+                              </motion.div>
+                            );
+                          case 'issue':
+                            return (
+                              <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, x: -100 }}
+                                transition={{
+                                  duration: 0.5,
+                                  staggerChildren: 1.5,
+                                }}
+                                className='flex flex-col flex-wrap items-center gap-2 rounded-md border-2 border-blsm_white px-3 py-4'
+                              >
+                                <div className='flex flex-col items-center'>
+                                  <p>Repo: {update.parent_repo}</p>
+                                  <p className='text-blsm_secondary'>
+                                    Issue {update.action} @{' '}
+                                    {convertToSimpleDateTime(update.created_at)}
+                                  </p>
+                                </div>
+                                <div className='flex justify-between'>
+                                  <div className='flex gap-1'>
+                                    <p>{update.title}</p>
+                                    <p className='font-bold text-blsm_primary'>
+                                      #{update.number}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div>
+                                  <p className='italic'>{update.body}</p>
+                                </div>
+                              </motion.div>
+                            );
+                          case 'commit':
+                            return (
+                              <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, x: -100 }}
+                                transition={{
+                                  duration: 0.5,
+                                  staggerChildren: 1.5,
+                                }}
+                                className='flex flex-col flex-wrap items-center gap-2 rounded-md border-2 border-blsm_white p-2'
+                              >
+                                <div className='flex flex-col items-center'>
+                                  <p>Repo: {update.parent_repo}</p>
+                                  <p className='text-blsm_secondary'>
+                                    Commit made @{' '}
+                                    {convertToSimpleDateTime(update.created_at)}
+                                  </p>
+                                </div>
+                                <div className='flex justify-between'>
+                                  <p className='italic'>
+                                    Commit Message:{' '}
+                                    <span className='text-blsm_accent'>
+                                      {update.message}
+                                    </span>
+                                  </p>
+                                </div>
+                              </motion.div>
+                            );
+                          default:
+                            return (
+                              <motion.p
+                                key={i}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, x: -100 }}
+                                transition={{
+                                  duration: 0.5,
+                                  staggerChildren: 1.5,
+                                }}
+                              >
+                                Error : {update.type} is not a valid update
+                                type.
+                              </motion.p>
+                            );
+                        }
+                      })
+                    ) : (
+                      <p className='text-center font-cabin'>
+                        There are no recent updates to display.
+                      </p>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
-
-   
     </Suspense>
   );
 }

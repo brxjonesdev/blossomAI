@@ -28,13 +28,10 @@ export default async function Content() {
     redirect('/');
   }
 
-  
-
   const { data: reposfromDB, error } = await supabase
     .from('Repos')
     .select('id, repo_name, Updates(*)')
     .eq('owner', 'Braxton-Jones');
-
 
   let totalPullRequests = 0;
   let totalIssues = 0;
@@ -53,23 +50,23 @@ export default async function Content() {
     totalRepos++;
   });
 
-  
-
-  return (<>
-    <UserInfo />
-    <section className='flex grow flex-col items-center gap-6 rounded-md border-2 p-4 pt-8 font-montserrat'>
-      {reposfromDB?.length === 0 ? (
+  return (
+    <>
+      <UserInfo />
+      <section className='flex grow flex-col items-center gap-6 rounded-md border-2 p-4 pt-8 font-montserrat'>
+        {reposfromDB?.length === 0 ? (
           <>
-            <div className='flex flex-col items-center gap-2 justify-center font-cabin text-lg'>
+            <div className='flex flex-col items-center justify-center gap-2 font-cabin text-lg'>
               <p>
-                Once you link your GitHub repositories using `npm script name`, you will be able to view updates for each repository.        
+                Once you link your GitHub repositories using `npm script name`,
+                you will be able to view updates for each repository.
               </p>
             </div>
           </>
-        ): <RepoSelect
-          reposfromDB={reposfromDB}
-        />}
-      
-    </section>
- </> );
+        ) : (
+          <RepoSelect reposfromDB={reposfromDB} />
+        )}
+      </section>
+    </>
+  );
 }

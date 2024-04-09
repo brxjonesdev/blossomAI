@@ -10,13 +10,13 @@ export default function GithubAuthBtn() {
   );
 
   async function signInWithGithub() {
-    const {data , error} = await supabase.auth.signInWithOAuth({
-      provider : 'github',
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'github',
       options: {
         redirectTo: `http://localhost:3000/auth/callback`,
       },
-    })
-    
+    });
+
     console.log(data, error);
   }
 
