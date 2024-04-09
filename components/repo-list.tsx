@@ -118,7 +118,7 @@ export default function RepoList(userInfo: any) {
         handleDatabaseChanges
       )
       .subscribe();
-  }, [supabase]);
+  }, [supabase, fetchUserUpdates, handleDatabaseChanges, user, userName]);
 
   console.log('repoUpdates', repoUpdates);
   return (
