@@ -64,7 +64,7 @@ export default function BLSMAI({
 
   function generateContent() {
     setIsGenerating(true);
-    fetch('http://localhost:3000/api/ai', {
+    fetch('https://blossom-ai-rose.vercel.app/api/ai', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
