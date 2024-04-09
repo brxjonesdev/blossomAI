@@ -122,17 +122,17 @@ export default function RepoList(userInfo: any) {
 
   console.log('repoUpdates', repoUpdates);
   return (
-    <Suspense fallback={<div>Loading repo info...</div>}>
+    <Suspense fallback={<div>{`Loading repo info...`}</div>}>
       <div className=''>
         <div className='flex flex-col gap-2 font-montserrat text-lg'>
           <Accordion type='single' collapsible className=''>
             <AccordionItem value='item-1'>
               <AccordionTrigger>
-                {' '}
-                You have {repoUpdates.length > 0
+               {` ${' '}
+                You have ${repoUpdates.length > 0
                   ? repoUpdates.length
-                  : 'no'}{' '}
-                recent repo changes.
+                  : 'no'}${' '}
+                recent repo changes.`}
               </AccordionTrigger>
               <AccordionContent>
                 <div className='flex flex-col gap-2 font-cabin'>
@@ -156,7 +156,7 @@ export default function RepoList(userInfo: any) {
                                 <div className='flex flex-col items-center'>
                                   <p>Repo: {update.parent_repo}</p>
                                   <p className='text-blsm_secondary'>
-                                    Pull Request {update.action} @{' '}
+                                    {`Pull Request ${update.action} @${' '}`}
                                     {convertToSimpleDateTime(update.created_at)}
                                   </p>
                                 </div>
@@ -164,7 +164,7 @@ export default function RepoList(userInfo: any) {
                                   <div className='flex gap-1'>
                                     <p>{update.title}</p>
                                     <p className='font-bold text-blsm_primary'>
-                                      #{update.number}
+                                      {`#${update.number}`}
                                     </p>
                                   </div>
                                 </div>
@@ -189,7 +189,7 @@ export default function RepoList(userInfo: any) {
                                 <div className='flex flex-col items-center'>
                                   <p>Repo: {update.parent_repo}</p>
                                   <p className='text-blsm_secondary'>
-                                    Issue {update.action} @{' '}
+                                    {`Issue {update.action} @${' '}`}
                                     {convertToSimpleDateTime(update.created_at)}
                                   </p>
                                 </div>
@@ -222,13 +222,13 @@ export default function RepoList(userInfo: any) {
                                 <div className='flex flex-col items-center'>
                                   <p>Repo: {update.parent_repo}</p>
                                   <p className='text-blsm_secondary'>
-                                    Commit made @{' '}
+                                    {`Commit made @${' '}`}
                                     {convertToSimpleDateTime(update.created_at)}
                                   </p>
                                 </div>
                                 <div className='flex justify-between'>
                                   <p className='italic'>
-                                    Commit Message:{' '}
+                                    {`Commit Message:${' '}`}
                                     <span className='text-blsm_accent'>
                                       {update.message}
                                     </span>
@@ -248,8 +248,8 @@ export default function RepoList(userInfo: any) {
                                   staggerChildren: 1.5,
                                 }}
                               >
-                                Error : {update.type} is not a valid update
-                                type.
+                                {`Error : ${update.type} is not a valid update
+                                type.`}
                               </motion.p>
                             );
                         }

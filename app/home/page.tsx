@@ -58,8 +58,8 @@ export default async function Content() {
           <>
             <div className='flex flex-col items-center justify-center gap-2 font-cabin text-lg'>
               <p>
-                Once you link your GitHub repositories using `npm script name`,
-                you will be able to view updates for each repository.
+                {`Once you link your GitHub repositories using ${`npm script name`},
+                you will be able to view updates for each repository.`}
               </p>
             </div>
           </>

@@ -44,6 +44,9 @@ export default function RootLayout({
           <section className='mx-4 flex w-full max-w-7xl flex-1 flex-col px-4 md:justify-center'>
             {children}
           </section>
+          <section className='my-4 flex flex-col gap-2 border-2 p-2'>
+            <p className='text-center'>{`Made with ❤️ by brxjonesdev`}</p>
+          </section>
         </main>
       </body>
     </html>

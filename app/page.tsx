@@ -15,7 +15,7 @@ export default function LandingPage() {
         <div className='my-2 border-b-2 border-t-2 border-blsm_accent' />
         <section className='flex flex-col gap-4'>
           <h2 className='font-montserrat text-2xl font-black md:text-3xl'>
-            How It Works
+            {`How It Works`}
           </h2>
           <p className='font-cabin md:text-xl'>
             {`BlossomAI works by connecting directly to your GitHub repositories. Once linked, it monitors your commits and pull requests, intelligently generating update posts based on your activity. You can customize these posts before sharing them with your audience.`}

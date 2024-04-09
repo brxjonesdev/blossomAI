@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     title: string | null;
     type: string | null;
   }[];
- 
+
   const openai = new OpenAI();
   const body = await req.json();
 
@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
       ),
       parent_repo: updates[0].parent_repo,
       content_style: style,
+      author: updates[0].sender,
     };
     return formattedUpdates;
   };
@@ -50,8 +51,8 @@ export async function POST(req: NextRequest) {
       created_at: string;
     }[];
     parent_repo: number | null;
-    parent_repo_description: string;
     content_style: 'Social' | 'Blog' | 'LinkedIn';
+    author: string | null;
   }) => {
     const styles = [
       {
@@ -91,11 +92,13 @@ export async function POST(req: NextRequest) {
         ],
       });
 
-     return content.choices[0].message.content;
+      return content.choices[0].message.content;
     }
   };
 
-  const response = await generateContent(updateFormatter(body.updates, body.contentType));
+  const response = await generateContent(
+    updateFormatter(body.updates, body.contentType)
+  );
 
   return NextResponse.json({
     blsmContent: response,

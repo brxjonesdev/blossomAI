@@ -193,8 +193,11 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
                   </DialogHeader>
                   <div className='border-b-1 border-t-2 border-blsm_accent' />
                   <DialogDescription>
-                  {repo.Updates.length > 0 ? (
-                      <BLSMAI repoName={repo.repo_name} updates={repo.Updates} />
+                    {repo.Updates.length > 0 ? (
+                      <BLSMAI
+                        repoName={repo.repo_name}
+                        updates={repo.Updates}
+                      />
                     ) : (
                       <p className='text-center font-cabin text-blsm_accent'>
                         No updates available for this repository.
