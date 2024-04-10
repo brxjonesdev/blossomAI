@@ -23,6 +23,7 @@ export default function GithubAuthBtn() {
   return (
     <Button
       onClick={() => {
+        console.log('clicked');
         signInWithGithub();
       }}
       className='my-2 rounded-md bg-blsm_accent px-4 py-2 font-montserrat font-black text-white hover:bg-blsm_primary'

@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
   const body: EventData = await req.json();
 
   switch (body.type) {
-    case 'commit':
+    case 'push':
       console.log('Handling commit event...');
       await supabase.from('Updates').insert([
         {
