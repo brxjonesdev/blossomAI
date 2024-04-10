@@ -52,21 +52,6 @@ export default function RepoList(userInfo: any) {
   }
 
   const handleDatabaseChanges = (payload: any) => {
-    console.log('Change received!', payload);
-    // {
-    //   "schema": "public",
-    //   "table": "Repos",
-    //   "commit_timestamp": "2024-04-05T07:23:50.034Z",
-    //   "eventType": "INSERT",
-    //   "new": {
-    //     "created_at": "2024-04-05T07:23:50.032275+00:00",
-    //     "id": 11,
-    //     "owner": "Braxton-Jones",
-    //     "repo_name": "fa"
-    //   },
-    //   "old": {},
-    //   "errors": null
-    // }
     if (payload.eventType === 'INSERT' && payload.table === 'Updates') {
       setRepoUpdates((prev) => [...prev, payload.new]);
     }
@@ -206,7 +191,7 @@ export default function RepoList(userInfo: any) {
                                 </div>
                               </motion.div>
                             );
-                          case 'commit':
+                          case 'push':
                             return (
                               <motion.div
                                 key={i}

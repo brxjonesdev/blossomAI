@@ -45,7 +45,7 @@ export default async function Content() {
       (update) => update.type === 'issue'
     ).length;
     totalCommits += repo.Updates.filter(
-      (update) => update.type === 'commit'
+      (update) => update.type === 'push'
     ).length;
     totalRepos++;
   });
