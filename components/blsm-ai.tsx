@@ -134,7 +134,7 @@ export default function BLSMAI({
                 <h3 className='text-md font-montserrat font-bold'>
                   {update.type}
                 </h3>
-                <p>{update.action ? update.action : 'made'}</p>
+                <p>{update.action ? update.action : `commit made by you!`}</p>
               </div>
               <p className='font-cabin text-sm'>{update.message}</p>
               <p className='font-cabin text-sm'>{update.body}</p>

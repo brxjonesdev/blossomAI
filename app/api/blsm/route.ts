@@ -2,21 +2,32 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
-type EventData = {
-  type?: string;
-  timestamp?: string;
-  blsmRepoID?: number;
-  username?: string;
-  commitMessage?: string;
-  issueAction?: string;
-  issueNumber?: string;
-  issueTitle?: string;
-  issueBody?: string;
-  pullRequestAction?: string;
-  pullRequestNumber?: string;
-  pullRequestTitle?: string;
-  pullRequestBody?: string;
+type Event = {
+  type: string;
+  timestamp: string;
+  repo: string;
+  username: string;
+  commitDetails: {
+    timestamp: string;
+    message: string;
+    repo: string;
+  };
+  pullRequestDetails: {
+    action: '';
+    timestamp: string;
+    number: '';
+    title: '';
+    body: '';
+  };
+  issueDetails: {
+    action: '';
+    timestamp: string;
+    number: '';
+    title: '';
+    body: '';
+  };
 };
+
 
 export async function GET(req: NextRequest) {
   return NextResponse.json({ message: 'Hello, world!' });
@@ -42,7 +53,7 @@ export async function POST(req: NextRequest) {
       },
     }
   );
-  const body: EventData = await req.json();
+  const body: Event = await req.json();
 
   switch (body.type) {
     case 'push':
@@ -51,8 +62,9 @@ export async function POST(req: NextRequest) {
         {
           type: body.type,
           created_at: body.timestamp,
-          parent_repo: body.blsmRepoID,
-          message: body.commitMessage,
+          parent_repo: body.repo,
+          message: body.commitDetails.message,
+          sender: body.username,
         },
       ]);
       break;
@@ -62,26 +74,28 @@ export async function POST(req: NextRequest) {
         {
           type: body.type,
           created_at: body.timestamp,
-          parent_repo: body.blsmRepoID,
-          action: body.issueAction,
-          title: body.issueTitle,
-          body: body.issueBody,
-          number: body.issueNumber,
+          parent_repo: body.repo,
+          action: body.issueDetails.action,
+          title: body.issueDetails.title,
+          body: body.issueDetails.body,
+          number: body.issueDetails.number,
+          sender: body.username,
         },
       ]);
       break;
-    case 'pullRequest':
+    case 'pull_request':
       console.log('Handling pull request event...');
 
       const { data, error } = await supabase.from('Updates').insert([
         {
           type: body.type,
           created_at: body.timestamp,
-          parent_repo: body.blsmRepoID,
-          action: body.pullRequestAction,
-          title: body.pullRequestTitle,
-          body: body.pullRequestBody,
-          number: body.pullRequestNumber,
+          parent_repo: body.repo,
+          action: body.pullRequestDetails.action,
+          title: body.pullRequestDetails.title,
+          body: body.pullRequestDetails.body,
+          number: body.pullRequestDetails.number,
+          sender: body.username,
         },
       ]);
       if (error) {
