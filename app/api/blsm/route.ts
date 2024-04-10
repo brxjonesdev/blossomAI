@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 type Event = {
   type: string;
   timestamp: string;
-  repo: string;
+  repoID: string;
   username: string;
   commitDetails: {
     timestamp: string;
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
         {
           type: body.type,
           created_at: body.timestamp,
-          parent_repo: body.repo,
+          parent_repo: body.repoID,
           message: body.commitDetails.message,
           sender: body.username,
         },
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
         {
           type: body.type,
           created_at: body.timestamp,
-          parent_repo: body.repo,
+          parent_repo: body.repoID,
           action: body.issueDetails.action,
           title: body.issueDetails.title,
           body: body.issueDetails.body,
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
         {
           type: body.type,
           created_at: body.timestamp,
-          parent_repo: body.repo,
+          parent_repo: body.repoID,
           action: body.pullRequestDetails.action,
           title: body.pullRequestDetails.title,
           body: body.pullRequestDetails.body,
