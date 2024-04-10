@@ -91,7 +91,7 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
       (update) => update.type === 'pull_request'
     ).length;
     totalIssues += repo.Updates.filter(
-      (update) => update.type === 'issue'
+      (update) => update.type === 'issues'
     ).length;
     totalCommits += repo.Updates.filter(
       (update) => update.type === 'push'

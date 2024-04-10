@@ -158,7 +158,7 @@ export default function RepoList(userInfo: any) {
                                 </div>
                               </motion.div>
                             );
-                          case 'issue':
+                          case 'issues':
                             return (
                               <motion.div
                                 key={i}

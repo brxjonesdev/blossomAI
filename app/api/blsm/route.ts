@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
         },
       ]);
       break;
-    case 'issue':
+    case 'issues':
       console.log('Handling issue event...');
       await supabase.from('Updates').insert([
         {
