@@ -75,7 +75,6 @@ export async function POST(req: NextRequest) {
       await supabase.from('Updates').insert([
         {
           type: body.type,
-          created_at: body.timestamp,
           parent_repo: body.repoID,
           action: body.issueDetails.action,
           title: body.issueDetails.title,
@@ -87,11 +86,9 @@ export async function POST(req: NextRequest) {
       break;
     case 'pull_request':
       console.log('Handling pull request event...');
-
-      const { data, error } = await supabase.from('Updates').insert([
+      await supabase.from('Updates').insert([
         {
           type: body.type,
-          created_at: body.timestamp,
           parent_repo: body.repoID,
           action: body.pullRequestDetails.state,
           title: body.pullRequestDetails.title,
@@ -100,9 +97,6 @@ export async function POST(req: NextRequest) {
           sender: body.username,
         },
       ]);
-      if (error) {
-        console.log('Error inserting pull request event:', error.message);
-      }
       break;
     default:
       console.log('Unknown event type');
