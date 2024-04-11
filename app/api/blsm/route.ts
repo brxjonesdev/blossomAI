@@ -2,31 +2,33 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
-type Event = {
+type DataFromAction = {
   type: string;
   timestamp: string;
-  repoID: string;
+  repoID: number;
   username: string;
+  repo: string;
   commitDetails: {
-    timestamp: string;
-    message: string;
-    repo: string;
+    message: string | null;
+    timestamp: string | null;
+    commitID: string | null;
+    commitURL: string | null;
   };
   pullRequestDetails: {
-    action: '';
-    timestamp: string;
-    number: '';
-    title: '';
-    body: '';
+    number: number | null;
+    state: string | null;
+    title: string | null;
+    body: string | null;
   };
   issueDetails: {
-    action: '';
-    timestamp: string;
-    number: '';
-    title: '';
-    body: '';
+    action: string | null;
+    body: string | null;
+    title: string | null;
+    number: number | null;
+    state: string | null;
   };
 };
+
 
 
 export async function GET(req: NextRequest) {
@@ -53,7 +55,7 @@ export async function POST(req: NextRequest) {
       },
     }
   );
-  const body: Event = await req.json();
+  const body: DataFromAction = await req.json();
 
   switch (body.type) {
     case 'push':
@@ -91,7 +93,7 @@ export async function POST(req: NextRequest) {
           type: body.type,
           created_at: body.timestamp,
           parent_repo: body.repoID,
-          action: body.pullRequestDetails.action,
+          action: body.pullRequestDetails.state,
           title: body.pullRequestDetails.title,
           body: body.pullRequestDetails.body,
           number: body.pullRequestDetails.number,

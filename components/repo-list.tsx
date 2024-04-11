@@ -67,7 +67,7 @@ export default function RepoList(userInfo: any) {
         )
       );
     }
-    if (payload.eventType === 'INSERT' && payload.table === 'Repos') {
+    if (payload.eventType === 'INSERT' && payload.table === 'Repos' && payload.new.owner === userName) {
       handleNewRepo(payload.new);
     }
   };
