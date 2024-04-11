@@ -174,20 +174,21 @@ export default function RepoList(userInfo: any) {
                                 <div className='flex flex-col items-center'>
                                   <p>Repo: {update.parent_repo}</p>
                                   <p className='text-blsm_secondary'>
-                                    {`Issue {update.action} @${' '}`}
+                                    {`Issue ${update.action} @${' '}`}
                                     {convertToSimpleDateTime(update.created_at)}
                                   </p>
                                 </div>
                                 <div className='flex justify-between'>
                                   <div className='flex gap-1'>
-                                    <p>{update.title}</p>
-                                    <p className='font-bold text-blsm_primary'>
-                                      #{update.number}
+                                  <p className='font-bold text-blsm_primary'>
+                                      {`Issue #${update.number}`}
                                     </p>
+                                    <p>{`: {update.title}`}</p>
+                                    
                                   </div>
                                 </div>
                                 <div>
-                                  <p className='italic'>{update.body}</p>
+                                  <p className='text-blsm_accent'>{`Body: ${update.body}`}</p>
                                 </div>
                               </motion.div>
                             );
