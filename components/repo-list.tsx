@@ -191,7 +191,7 @@ export default function RepoList(userInfo: any) {
                                   <p className='font-bold text-blsm_primary'>
                                       {`About this issue:`}
                                     </p>
-                                    <p>{`${update.body}`}</p>
+                                    <p className='text-center'>{`${update.body}`}</p>
                                     
                                   </div>
                               </motion.div>
