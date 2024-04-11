@@ -183,13 +183,17 @@ export default function RepoList(userInfo: any) {
                                   <p className='font-bold text-blsm_primary'>
                                       {`Issue #${update.number}`}
                                     </p>
-                                    <p>{`: {update.title}`}</p>
+                                    <p>{`: ${update.title}`}</p>
                                     
                                   </div>
                                 </div>
-                                <div>
-                                  <p className='text-blsm_accent'>{`Body: ${update.body}`}</p>
-                                </div>
+                                <div className=''>
+                                  <p className='font-bold text-blsm_primary'>
+                                      {`Body`}
+                                    </p>
+                                    <p>{`: ${update.body}`}</p>
+                                    
+                                  </div>
                               </motion.div>
                             );
                           case 'push':
