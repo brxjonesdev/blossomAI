@@ -127,7 +127,7 @@ export default function BLSMAI({
           {`Recent Updates:`}
         </h3>
 
-        <ul className=' hidden gap-4 md:flex'>
+        <ul className='hidden gap-4 md:flex'>
           {updates.map((update, i) => (
             <li key={i} className='flex flex-col gap-1 rounded-sm border-2 p-2'>
               <div className='flex flex-col'>
@@ -246,7 +246,11 @@ export default function BLSMAI({
           <Button
             className='w-full bg-blsm_primary p-2 font-cabin font-bold text-blsm_black'
             onClick={() => {
-              saveGeneratedContent(content, updates[0].parent_repo, updates[0].sender);
+              saveGeneratedContent(
+                content,
+                updates[0].parent_repo,
+                updates[0].sender
+              );
             }}
           >
             {`Save Generated Content`}

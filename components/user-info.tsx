@@ -84,7 +84,7 @@ export default async function UserInfo() {
   }
 
   return (
-    <div className='flex min-w-[400px] max-w-[400px] flex-col gap-2 rounded-md border-2 p-4'>
+    <div className='flex w-full min-w-[400px] flex-col gap-2 rounded-md border-2 p-4 md:max-w-[400px]'>
       <div className='flex flex-wrap items-center justify-between gap-2  '>
         <div className='flex items-center gap-5'>
           <Avatar>
@@ -107,18 +107,32 @@ export default async function UserInfo() {
             Connect your repo to{' '}
             <span className='font-bold text-blsm_accent'>BlossomAI</span>
           </CardTitle>
-          <CardDescription className='py-1 text-xs'>
-            `{`npx blsm-init ${user?.user_name} <repo-name>`}`
-          </CardDescription>
-          <CopyBtn text={`npx blsm-init ${user?.user_name} <repo-name>`} />
+          <CardDescription className='py-1 text-xs'></CardDescription>
         </CardHeader>
-        <CardContent className='font-cabin text-sm text-center flex flex-col gap-2'>
-          <p className='text-left'>
-            Connect your GitHub repositories to BlossomAI to receive updates on
-            your repositories.
-          </p>
+        <CardContent className='flex flex-col gap-2 text-center font-cabin text-sm'>
+          <div>
+            <p>
+              {`1. Install the BlossomAI CLI by running `}
+              <span className='block font-bold text-blsm_accent'>
+                {`npm install -g blsm-cli`}
+              </span>
+            </p>
+            <p>
+              {`2. Run `}
+              <span className='font-bold text-blsm_accent'>
+                {`blsm-cli ${user?.preferred_username} <repo-name>`}
+              </span>
+            </p>
+            <p>{`3. You're all set!`}</p>
+          </div>
+        </CardContent>
+        <CardFooter className='justify-center'>
           <Dialog>
-            <DialogTrigger className='text-center'><p className='italic text-blsm_accent hover:underline '>How does this work?</p></DialogTrigger>
+            <DialogTrigger className='text-center'>
+              <p className='italic text-blsm_accent hover:underline '>
+                How does this work?
+              </p>
+            </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>{`How BlossomAI (BLSM) works.`}</DialogTitle>
@@ -133,18 +147,14 @@ export default async function UserInfo() {
                     If i think it would be useful to track other things, I'll add them.`}
                   </p>
                   <p className='text-md font-cabin'>
-                   {` This was made as a way to keep track of updates on my own repositories, but I thought it would be useful to others as well.
+                    {` This was made as a way to keep track of updates on my own repositories, but I thought it would be useful to others as well.
                     It also helps me keep track of my own progress on my projects and share them with others. #buildinpublic <3`}
                   </p>
-
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>
           </Dialog>
-
-          
-        </CardContent>
-        <CardFooter></CardFooter>
+        </CardFooter>
       </Card>
       <div className='my-2 border-b-2 border-t-2 border-blsm_accent' />
       <RepoList user={user} />

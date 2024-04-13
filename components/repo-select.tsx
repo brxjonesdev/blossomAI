@@ -48,8 +48,6 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
   const [reposfromDB, setReposfromDB] = useState<ReposFromDB>(repo.reposfromDB);
   console.log('reposfromDB', reposfromDB);
   const handleSelectUpdates = (payload: any) => {
-    console.log('Change received on AI!', payload);
-
     if (payload.eventType === 'INSERT') {
       setReposfromDB((prev) => {
         if (prev) {
@@ -98,6 +96,22 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
     ).length;
     totalRepos++;
   });
+
+  const handleRepoDelete = async (id: number) => {
+    const { data, error } = await supabase.from('Repos').delete().eq('id', id);
+    if (error) {
+      console.log('error in deleting repo', error);
+    }
+    if (data) {
+      setReposfromDB((prev) => {
+        if (prev) {
+          return prev.filter((repo) => repo.id !== id);
+        }
+        return null;
+      });
+    }
+  };
+
   return (
     <>
       <div className='flex flex-col items-center'>
@@ -139,7 +153,7 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
           <HoverCard key={i}>
             <HoverCardTrigger className='h-fit w-full'>
               <Dialog>
-                <DialogTrigger className='h-full w-full'>
+                <DialogTrigger className='h-full min-w-full'>
                   <div className='flex h-full flex-wrap items-center justify-between rounded-md border-2 p-3 py-7 hover:border-blsm_accent'>
                     <div className='w-full'>
                       <h2 className='text-lg font-bold'>{repo.repo_name}</h2>
@@ -153,11 +167,16 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
                         {repo.Updates.length} updates
                       </span>
                     </div>
-                    <div className='w-full md:hidden'>
-                      <ul className='flex flex-col gap-2'>
+                    <div className='mt-4 w-full md:hidden'>
+                      <ul className='grid grid-cols-2 justify-center gap-2'>
                         {repo.Updates.map((update, i) => (
-                          <li key={i} className='flex flex-col gap-1'>
-                            <h3 className='text-sm font-bold'>{update.type}</h3>
+                          <li
+                            key={i}
+                            className='flex min-w-full flex-col gap-1 rounded-sm border-2 p-3'
+                          >
+                            <h3 className='text-sm font-bold text-blsm_accent'>
+                              {update.type}
+                            </h3>
                             <p className='text-xs'>{update.message}</p>
                             <p className='text-xs'>{update.body}</p>
                           </li>
@@ -168,7 +187,7 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
                 </DialogTrigger>
                 <DialogContent className='w-full max-w-4xl px-8 py-10'>
                   <DialogHeader>
-                    <DialogTitle className='flex items-center justify-between font-montserrat font-black'>
+                    <DialogTitle className='flex items-center justify-between font-montserrat font-black '>
                       <div className='flex flex-col gap-1'>
                         <p>{repo.repo_name}</p>
                         <p className='font-cabin font-normal'>
@@ -179,10 +198,12 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
                         </p>
                       </div>
                       <div className='mt-3 flex justify-end gap-3'>
-                        <Button className='w-full bg-blsm_secondary px-10 hover:bg-blsm_secondary hover:brightness-75 md:w-fit'>
-                          Update
-                        </Button>
-                        <Button className='w-full border-2 border-red-400 bg-transparent px-4 text-white hover:bg-red-300 md:w-fit'>
+                        <Button
+                          className='w-full border-2 border-red-400 bg-transparent px-4 text-white hover:bg-red-300 md:w-fit'
+                          onClick={() => {
+                            handleRepoDelete(repo.id);
+                          }}
+                        >
                           Delete
                         </Button>
                       </div>

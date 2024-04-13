@@ -67,7 +67,11 @@ export default function RepoList(userInfo: any) {
         )
       );
     }
-    if (payload.eventType === 'INSERT' && payload.table === 'Repos' && payload.new.owner === userName) {
+    if (
+      payload.eventType === 'INSERT' &&
+      payload.table === 'Repos' &&
+      payload.new.owner === userName
+    ) {
       handleNewRepo(payload.new);
     }
   };
@@ -113,10 +117,10 @@ export default function RepoList(userInfo: any) {
           <Accordion type='single' collapsible className=''>
             <AccordionItem value='item-1'>
               <AccordionTrigger>
-               {` ${' '}
-                You have ${repoUpdates.length > 0
-                  ? repoUpdates.length
-                  : 'no'}${' '}
+                {` ${' '}
+                You have ${
+                  repoUpdates.length > 0 ? repoUpdates.length : 'no'
+                }${' '}
                 recent repo changes.`}
               </AccordionTrigger>
               <AccordionContent>
@@ -180,20 +184,18 @@ export default function RepoList(userInfo: any) {
                                 </div>
                                 <div className='flex justify-between'>
                                   <div className='flex gap-1'>
-                                  <p className='font-bold text-blsm_primary'>
+                                    <p className='font-bold text-blsm_primary'>
                                       {`Issue #${update.number}`}
                                     </p>
                                     <p>{`: ${update.title}`}</p>
-                                    
                                   </div>
                                 </div>
                                 <div className=''>
                                   <p className='font-bold text-blsm_primary'>
-                                      {`About this issue:`}
-                                    </p>
-                                    <p className='text-center'>{`${update.body}`}</p>
-                                    
-                                  </div>
+                                    {`About this issue:`}
+                                  </p>
+                                  <p className='text-center'>{`${update.body}`}</p>
+                                </div>
                               </motion.div>
                             );
                           case 'push':
