@@ -23,10 +23,10 @@ export default async function Content() {
       },
     }
   );
-  // const { data, error: authError } = await supabase.auth.getUser();
-  // if (authError || !data?.user) {
-  //   redirect('/');
-  // }
+  const { data, error: authError } = await supabase.auth.getUser();
+  if (authError || !data?.user) {
+    redirect('/');
+  }
 
   const { data: reposfromDB, error } = await supabase
     .from('Repos')
