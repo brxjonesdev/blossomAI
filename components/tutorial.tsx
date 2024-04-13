@@ -14,7 +14,7 @@ export default function BLSMTutorial({ user }) {
   return (
     <section className='flex flex-col gap-2'>
     <div>
-        <p className='text-left mb-2'>What's your repo's name?</p>
+        <p className='text-left mb-2'>{`What's your repo's name?`}</p>
         <Input
           placeholder='Repo Name'
           value={repoName}
