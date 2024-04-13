@@ -29,6 +29,7 @@ import {
 } from '@/components/ui/dialog';
 
 import CopyBtn from './copy-btn';
+import BLSMTutorial from './tutorial';
 
 export default async function UserInfo() {
   const cookieStore = cookies();
@@ -109,22 +110,8 @@ export default async function UserInfo() {
           </CardTitle>
           <CardDescription className='py-1 text-xs'></CardDescription>
         </CardHeader>
-        <CardContent className='flex flex-col gap-2 text-center font-cabin text-sm'>
-          <div>
-            <p>
-              {`1. Install the BlossomAI CLI by running `}
-              <span className='block font-bold text-blsm_accent'>
-                {`npm install -g blsm-cli`}
-              </span>
-            </p>
-            <p>
-              {`2. Run `}
-              <span className='font-bold text-blsm_accent'>
-                {`blsm-cli ${user?.preferred_username} <repo-name>`}
-              </span>
-            </p>
-            <p>{`3. You're all set!`}</p>
-          </div>
+        <CardContent className='flex flex-col gap-2 font-cabin text-sm'>
+          <BLSMTutorial user={user} />
         </CardContent>
         <CardFooter className='justify-center'>
           <Dialog>

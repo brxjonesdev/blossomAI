@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import GithubAuthBtn from '@/components/login-btn';
 export default function LandingPage() {
   return (
@@ -18,10 +16,7 @@ export default function LandingPage() {
             {`How It Works`}
           </h2>
           <p className='font-cabin md:text-xl'>
-            {`BlossomAI works by connecting directly to your GitHub repositories. Once linked, it monitors your commits and pull requests, intelligently generating update posts based on your activity. You can customize these posts before sharing them with your audience.`}
-          </p>
-          <p className='font-cabin md:text-xl'>
-            {`Our platform analyzes your code changes and identifies significant updates to highlight. This ensures that your followers stay informed about your project's progress without overwhelming them with unnecessary details.`}
+            {`BlossomAI works by connecting directly to your GitHub repositories. Once linked, it monitors your commits, issues and pull requests, intelligently generating update posts based on your activity. You can customize these posts before sharing them with your audience.`}
           </p>
         </section>
       </div>

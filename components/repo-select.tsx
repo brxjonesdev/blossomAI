@@ -164,7 +164,8 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
                         </span>
                       </p>
                       <span className='text-sm text-gray-500'>
-                        {repo.Updates.length} updates
+                        {repo.Updates.length} update
+                        {repo.Updates.length > 1 ? 's' : ''}
                       </span>
                     </div>
                     <div className='mt-4 w-full md:hidden'>
@@ -190,11 +191,17 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
                     <DialogTitle className='flex items-center justify-between font-montserrat font-black '>
                       <div className='flex flex-col gap-1'>
                         <p>{repo.repo_name}</p>
-                        <p className='font-cabin font-normal'>
-                          Last updated{' : '}{' '}
-                          <span className='font-cabin text-sm'>
-                            {repo.Updates[0]?.created_at.slice(0, 10)}
-                          </span>
+                        {repo.Updates ? (
+                          <p className='font-cabin font-normal'>
+                            Last updated{' : '}{' '}
+                            <span className='font-cabin text-sm'>
+                              {repo.Updates[0]?.created_at.slice(0, 10)}
+                            </span>
+                          </p>
+                        ) : null}
+                        <p className='font-cabin text-sm text-blsm_accent'>
+                          {repo.Updates.length} update
+                          {repo.Updates.length > 1 ? 's' : ''}
                         </p>
                       </div>
                       <div className='mt-3 flex justify-end gap-3'>
@@ -208,23 +215,21 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
                         </Button>
                       </div>
                     </DialogTitle>
-                    <DialogDescription className='font-cabin text-blsm_accent'>
-                      {repo.Updates.length} updates
+                    <DialogDescription>
+                      <div>
+                        {repo.Updates.length > 0 ? (
+                          <BLSMAI
+                            repoName={repo.repo_name}
+                            updates={repo.Updates}
+                          />
+                        ) : (
+                          <p className='text-center font-cabin text-blsm_accent'>
+                            No updates available for this repository.
+                          </p>
+                        )}
+                      </div>
                     </DialogDescription>
                   </DialogHeader>
-                  <div className='border-b-1 border-t-2 border-blsm_accent' />
-                  <DialogDescription>
-                    {repo.Updates.length > 0 ? (
-                      <BLSMAI
-                        repoName={repo.repo_name}
-                        updates={repo.Updates}
-                      />
-                    ) : (
-                      <p className='text-center font-cabin text-blsm_accent'>
-                        No updates available for this repository.
-                      </p>
-                    )}
-                  </DialogDescription>
                 </DialogContent>
               </Dialog>
             </HoverCardTrigger>

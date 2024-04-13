@@ -23,10 +23,10 @@ export default async function Content() {
       },
     }
   );
-  const { data, error: authError } = await supabase.auth.getUser();
-  if (authError || !data?.user) {
-    redirect('/');
-  }
+  // const { data, error: authError } = await supabase.auth.getUser();
+  // if (authError || !data?.user) {
+  //   redirect('/');
+  // }
 
   const { data: reposfromDB, error } = await supabase
     .from('Repos')
@@ -57,9 +57,8 @@ export default async function Content() {
         {reposfromDB?.length === 0 ? (
           <>
             <div className='flex flex-col items-center justify-center gap-2 font-cabin text-lg'>
-              <p>
-                {`Once you link your GitHub repositories using ${`npm script name`},
-                you will be able to view updates for each repository.`}
+              <p className='text-center font-cabin text-sm'>
+                {`You have no connected repositories. Connect a repository to get started!`}
               </p>
             </div>
           </>
