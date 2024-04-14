@@ -5,10 +5,11 @@ import CopyBtn from './copy-btn';
 import CopyText from './copy-text';
 import { Input } from "@/components/ui/input"
 import { useState } from 'react';
+import { UserMetadata } from '@supabase/supabase-js';
 
 
 
-export default function BLSMTutorial({ user }) {
+export default function BLSMTutorial({ user }: { user: UserMetadata | undefined}) {
     const [repoName, setRepoName] = useState<string>('');
 
   return (
