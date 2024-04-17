@@ -151,14 +151,14 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
       <section className='flex h-full w-full flex-wrap gap-4 md:grid md:grid-cols-3'>
         {reposfromDB?.map((repo, i) => (
           <HoverCard key={i}>
-            <HoverCardTrigger className='h-fit w-full'>
+            <HoverCardTrigger className='w-full m-3 h-fit'>
               <Dialog>
                 <DialogTrigger className='h-full min-w-full'>
                   <div className='flex h-full flex-wrap items-center justify-between rounded-md border-2 p-3 py-7 hover:border-blsm_accent'>
                     <div className='w-full'>
                       <h2 className='text-lg font-bold'>{repo.repo_name}</h2>
-                      <p>
-                        Last updated{' : '}{' '}
+                      <p className=''>
+                        <span className='text-nowrap'>Last updated</span>{' : '}{' '}
                         <span className='text-sm'>
                           {repo.Updates[0]?.created_at.slice(0, 10)}
                         </span>
@@ -186,8 +186,8 @@ export default function RepoSelect(repo: { reposfromDB: ReposFromDB }) {
                     </div>
                   </div>
                 </DialogTrigger>
-                <DialogContent className='w-full max-w-4xl px-8 py-10'>
-                  <DialogHeader>
+                <DialogContent className='w-full max-w-3xl px-8 py-8 h-fit '>
+                  <DialogHeader className=''>
                     <DialogTitle className='flex items-center justify-between font-montserrat font-black '>
                       <div className='flex flex-col gap-1'>
                         <p>{repo.repo_name}</p>

@@ -238,7 +238,7 @@ export default function BLSMAI({
           </Button>
         </div>
         <textarea
-          className='h-72 w-full rounded-md border-2 p-2 font-cabin font-bold'
+          className='h-60 w-full rounded-md border-2 p-2 font-cabin font-bold'
           value={content}
           readOnly
         />
